@@ -15,7 +15,7 @@ const customized = stylistic.configs.customize({
     indent: 4,
     jsx: true,
     pluginName: '@stylistic',
-    quoteProps: 'consistent-as-needed',
+    quoteProps: 'as-needed',
     quotes: 'single',
     semi: true,
 });
