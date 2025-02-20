@@ -43,3 +43,15 @@ export const Icon = createComponent({
     elementClass: md.MdIcon,
     react: React,
 });
+
+export const IconButton = createComponent({
+    tagName: 'md-icon-button',
+    elementClass: md.MdIconButton,
+    react: React,
+});
+
+export const FilledIconButton = createComponent({
+    tagName: 'md-filled-icon-button',
+    elementClass: md.MdFilledIconButton,
+    react: React,
+});

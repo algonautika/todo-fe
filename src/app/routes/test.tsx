@@ -1,4 +1,4 @@
-import { Checkbox, Icon, OutlinedButton, OutlinedTextField, Radio, TextButton } from '@/components/material';
+import { Checkbox, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton } from '@/components/material';
 
 export const Test = () => {
     return (
@@ -19,12 +19,9 @@ export const Test = () => {
                 </p>
                 <Checkbox></Checkbox>
                 <div>
-                    <Radio name="group">
-                    </Radio>
-                    <Radio name="group">
-                    </Radio>
-                    <Radio name="group">
-                    </Radio>
+                    <Radio name="group"></Radio>
+                    <Radio name="group"></Radio>
+                    <Radio name="group"></Radio>
                 </div>
                 <OutlinedTextField
                     label="Favorite color"
@@ -32,11 +29,27 @@ export const Test = () => {
                 >
                 </OutlinedTextField>
 
-                <TextButton trailing-icon>
-                    Open
-                    <Icon>close</Icon>
-                </TextButton>
+                <div>
+                    <TextButton hasIcon>
+                        <Icon>send</Icon>
+                        Submit
+                    </TextButton>
 
+                    <TextButton trailing-icon>
+                        Open
+                        <Icon>open_in_new</Icon>
+                    </TextButton>
+                </div>
+
+                <div>
+                    <IconButton>
+                        <Icon>favorite</Icon>
+                    </IconButton>
+                    <FilledIconButton>
+                        <Icon>favorite</Icon>
+                    </FilledIconButton>
+
+                </div>
                 <OutlinedButton type="reset">
                     Reset
                 </OutlinedButton>
