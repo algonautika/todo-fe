@@ -31,3 +31,15 @@ export const OutlinedButton = createComponent({
     elementClass: md.MdOutlinedButton,
     react: React,
 });
+
+export const TextButton = createComponent({
+    tagName: 'md-text-button',
+    elementClass: md.MdTextButton,
+    react: React,
+});
+
+export const Icon = createComponent({
+    tagName: 'md-icon',
+    elementClass: md.MdIcon,
+    react: React,
+});

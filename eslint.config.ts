@@ -68,7 +68,7 @@ export default [
                 },
             ],
             '@stylistic/object-property-newline': ['warn'],
-            '@stylistic/jsx-first-prop-new-line': ['warn', 'always'],
+            '@stylistic/jsx-first-prop-new-line': ['warn', 'multiline'],
             '@stylistic/padding-line-between-statements': [
                 'warn',
                 {

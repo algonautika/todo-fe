@@ -1,11 +1,9 @@
-import { Checkbox, OutlinedButton, OutlinedTextField, Radio } from '@/components/material';
+import { Checkbox, Icon, OutlinedButton, OutlinedTextField, Radio, TextButton } from '@/components/material';
 
 export const Test = () => {
     return (
         <>
-            <h1
-                className="md-typescale-display-medium"
-            >
+            <h1 className="md-typescale-display-medium">
                 Hello Material!
             </h1>
             <form
@@ -16,24 +14,16 @@ export const Test = () => {
                     gap: '16px',
                 }}
             >
-                <p
-                    className="md-typescale-body-medium"
-                >
+                <p className="md-typescale-body-medium">
                     Check out these controls in a form!
                 </p>
                 <Checkbox></Checkbox>
                 <div>
-                    <Radio
-                        name="group"
-                    >
+                    <Radio name="group">
                     </Radio>
-                    <Radio
-                        name="group"
-                    >
+                    <Radio name="group">
                     </Radio>
-                    <Radio
-                        name="group"
-                    >
+                    <Radio name="group">
                     </Radio>
                 </div>
                 <OutlinedTextField
@@ -41,9 +31,13 @@ export const Test = () => {
                     value="Purple"
                 >
                 </OutlinedTextField>
-                <OutlinedButton
-                    type="reset"
-                >
+
+                <TextButton trailing-icon>
+                    Open
+                    <Icon>close</Icon>
+                </TextButton>
+
+                <OutlinedButton type="reset">
                     Reset
                 </OutlinedButton>
             </form>
