@@ -36,6 +36,7 @@ TODO
   - `import reactLogo from '@/assets/react.svg'` (O)
   - `import reactLogo from '../../assets/react.svg'` (X)
 - `import`로 하위 모듈을 사용하는 경우 relative path로 참조합니다.
+- directory/file 이름은 kebab-case를 사용합니다.
 
 ### Project Structure
 
