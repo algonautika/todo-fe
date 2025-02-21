@@ -40,20 +40,28 @@ export const Test = () => {
                 </OutlinedTextField>
 
                 <div>
-                    <TextButton hasIcon>
+                    <TextButton
+                        type="button"
+                    >
                         Submit
                     </TextButton>
 
-                    <TextButton trailing-icon>
+                    <TextButton
+                        type="button"
+                    >
                         Open
                     </TextButton>
                 </div>
 
                 <div>
-                    <IconButton>
+                    <IconButton
+                        type="button"
+                    >
                         <Icon>favorite</Icon>
                     </IconButton>
-                    <FilledIconButton>
+                    <FilledIconButton
+                        type="button"
+                    >
                         <Icon>favorite</Icon>
                     </FilledIconButton>
                 </div>
