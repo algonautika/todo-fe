@@ -1,4 +1,4 @@
-import { Checkbox, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, Ripple, TextButton, TopAppBar } from '@/components/material';
+import { Checkbox, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton, TopAppBar } from '@/components/material';
 import { GoogleSignin } from '@/components/oauth';
 
 export const Test = () => {
