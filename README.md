@@ -24,7 +24,7 @@ TODO
 
 - [Material 3 Design Guidline](https://m3.material.io/)을 기반으로 합니다.
 - [Figma](https://www.figma.com/design/0nnKxnwM1WUGEh6mXOkVbx/Design?m=auto&t=rskTTbifdmEUmICn-6) 디자인 파일을 참고합니다.
-- 하드코딩된 Color, Size, Spacing 등은 사용하지 않습니다.
+<!-- - 하드코딩된 Color, Size, Spacing 등은 사용하지 않습니다. -->
 
 ### Coding Guidlines
 

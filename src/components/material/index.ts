@@ -56,6 +56,12 @@ export const FilledIconButton = createComponent({
     react: React,
 });
 
+export const Ripple = createComponent({
+    tagName: 'md-ripple',
+    elementClass: md.MdRipple,
+    react: React,
+});
+
 export * from './navigation-bar';
 
 export * from './top-app-bar';

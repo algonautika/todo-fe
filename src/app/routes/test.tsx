@@ -1,4 +1,5 @@
-import { Checkbox, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton, TopAppBar } from '@/components/material';
+import { Checkbox, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, Ripple, TextButton, TopAppBar } from '@/components/material';
+import { GoogleSignin } from '@/components/oauth';
 
 export const Test = () => {
     return (
@@ -19,14 +20,17 @@ export const Test = () => {
                     gap: '16px',
                 }}
             >
+
+                <GoogleSignin />
+
                 <p className="md-typescale-body-medium">
                     Check out these controls in a form!
                 </p>
-                <Checkbox></Checkbox>
+                <Checkbox />
                 <div>
-                    <Radio name="group"></Radio>
-                    <Radio name="group"></Radio>
-                    <Radio name="group"></Radio>
+                    <Radio name="group" />
+                    <Radio name="group" />
+                    <Radio name="group" />
                 </div>
                 <OutlinedTextField
                     label="Favorite color"
