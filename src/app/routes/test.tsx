@@ -1,4 +1,5 @@
 import { Checkbox, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton, TopAppBar } from '@/components/material';
+import { Snackbar } from '@/components/material/snackbar';
 import { GoogleSignin } from '@/components/oauth';
 
 export const Test = () => {
@@ -60,6 +61,11 @@ export const Test = () => {
                 <OutlinedButton type="reset">
                     Reset
                 </OutlinedButton>
+
+                <Snackbar
+                    open={true}
+                    message="snackbar test"
+                />
             </form>
         </>
     );
