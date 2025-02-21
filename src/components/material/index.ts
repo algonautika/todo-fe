@@ -62,6 +62,12 @@ export const Ripple = createComponent({
     react: React,
 });
 
+export const Elevation = createComponent({
+    tagName: 'md-elevation',
+    elementClass: md.MdElevation,
+    react: React,
+});
+
 export * from './navigation-bar';
 
 export * from './top-app-bar';
