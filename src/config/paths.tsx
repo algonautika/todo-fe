@@ -5,8 +5,8 @@ interface Route {
 const test: Route = {
     path: '/test',
 };
-const login: Route = {
-    path: '/login',
+const signin: Route = {
+    path: '/signin',
 };
 const home: Route = {
     path: '/home',
@@ -14,6 +14,6 @@ const home: Route = {
 
 export const paths = {
     test,
-    login,
+    signin,
     home,
 } as const;

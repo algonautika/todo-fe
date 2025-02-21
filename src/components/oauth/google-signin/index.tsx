@@ -1,7 +1,12 @@
 import { Ripple } from '@/components/material';
 import NeutralRoundContinue from './web_neutral_rd_ctn.svg?react';
+import React from 'react';
 
-export const GoogleSignin = () => {
+interface GoogleSigninProps {
+    onClick?: React.DOMAttributes<HTMLDivElement>['onClick'];
+}
+
+export const GoogleSignin = (props: GoogleSigninProps) => {
     return (
         <div
             style={{
@@ -10,6 +15,7 @@ export const GoogleSignin = () => {
                 borderRadius: '20px',
                 cursor: 'pointer',
             }}
+            onClick={props.onClick}
         >
             <Ripple />
             <NeutralRoundContinue />

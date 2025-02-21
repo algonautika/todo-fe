@@ -1,6 +1,7 @@
 import { paths } from '@/config/paths';
 import { BrowserRouter, Route, Routes } from 'react-router';
 import { Test } from './routes/test';
+import { Signin } from './routes/login';
 
 export const AppRouter = () => {
     return (
@@ -9,6 +10,10 @@ export const AppRouter = () => {
                 <Route
                     path={paths.test.path}
                     element={<Test />}
+                />
+                <Route
+                    path={paths.signin.path}
+                    element={<Signin />}
                 />
             </Routes>
         </BrowserRouter>
