@@ -55,3 +55,7 @@ export const FilledIconButton = createComponent({
     elementClass: md.MdFilledIconButton,
     react: React,
 });
+
+export * from './navigation-bar';
+
+export * from './top-app-bar';

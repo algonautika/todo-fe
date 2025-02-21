@@ -1,0 +1,45 @@
+@use "pretendard/dist/web/variable/pretendardvariable";
+
+:root {
+    color-scheme: light dark;
+
+    // https://developer.mozilla.org/ko/docs/Web/CSS/font-synthesis 의 권장에 따라 비영어권 폰트는 font-synthesis: none; 사용
+    font-synthesis: none;
+    // https://developer.mozilla.org/en-US/docs/Web/CSS/text-rendering 참조. 가독성을 위한 옵션 사용
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue",
+        "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji",
+        "Segoe UI Symbol", sans-serif;
+
+
+    --md-ref-typeface-brand: var(--font);
+    --md-ref-typeface-plain: var(--font);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    place-items: center start;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+#root {
+    width: 100%;
+    max-width: 800px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    place-items: start;
+}

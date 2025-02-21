@@ -1,8 +1,13 @@
-import { Checkbox, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton } from '@/components/material';
+import { Checkbox, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton, TopAppBar } from '@/components/material';
 
 export const Test = () => {
     return (
         <>
+            <TopAppBar
+                type="center-aligned"
+                title="Title"
+            />
+
             <h1 className="md-typescale-display-medium">
                 Hello Material!
             </h1>
@@ -31,13 +36,11 @@ export const Test = () => {
 
                 <div>
                     <TextButton hasIcon>
-                        <Icon>send</Icon>
                         Submit
                     </TextButton>
 
                     <TextButton trailing-icon>
                         Open
-                        <Icon>open_in_new</Icon>
                     </TextButton>
                 </div>
 
@@ -48,7 +51,6 @@ export const Test = () => {
                     <FilledIconButton>
                         <Icon>favorite</Icon>
                     </FilledIconButton>
-
                 </div>
                 <OutlinedButton type="reset">
                     Reset
