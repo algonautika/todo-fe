@@ -1,5 +1,5 @@
 import { paths } from '@/config/paths';
-import { BrowserRouter, Route, Routes } from 'react-router';
+import { BrowserRouter, Navigate, redirect, Route, Routes } from 'react-router';
 import { Test } from './routes/test';
 import { Signin } from './routes/signin';
 import { Main } from './routes/main';
@@ -20,6 +20,10 @@ export const AppRouter = () => {
                     path={paths.main.path}
                     element={<Main />}
                 >
+                    <Route
+                        index
+                        element={<Navigate to={paths.main.today.path} />}
+                    />
                     <Route
                         path={paths.main.today.path}
                         element={<div>Today</div>}
