@@ -1,19 +1,14 @@
-interface Route {
-    path: string;
-}
-
-const test: Route = {
-    path: '/test',
-};
-const signin: Route = {
-    path: '/signin',
-};
-const main: Route = {
-    path: '/main',
-};
-
 export const paths = {
-    test,
-    signin,
-    main,
+    test: {
+        path: '/test',
+    },
+    signin: {
+        path: '/signin',
+    },
+    main: {
+        path: '/main',
+        today: {
+            path: 'today',
+        },
+    },
 } as const;

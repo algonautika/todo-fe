@@ -19,7 +19,13 @@ export const AppRouter = () => {
                 <Route
                     path={paths.main.path}
                     element={<Main />}
-                />
+                >
+                    <Route
+                        path={paths.main.today.path}
+                        element={<div>Today</div>}
+                    />
+
+                </Route>
             </Routes>
         </BrowserRouter>
     );

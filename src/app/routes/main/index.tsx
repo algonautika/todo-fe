@@ -1,5 +1,6 @@
 import { BottomNavigation, BottomNavigationItem, Fab, Icon, TopAppBar } from '@/components/material';
 import { Scaffold } from '@/components/scaffold';
+import { Outlet } from 'react-router';
 
 export const Main = () => {
     return (
@@ -35,8 +36,7 @@ export const Main = () => {
                 </Fab>
             )}
         >
-            <></>
-
+            <Outlet />
         </Scaffold>
     );
 };
