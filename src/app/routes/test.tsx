@@ -16,11 +16,27 @@ export const Test = () => {
 
             bottomBar={(
                 <BottomNavigation>
-                    <BottomNavigationItem icon="settings" label="오늘 할 일" selected={true} />
-                    <BottomNavigationItem icon="settings" label="오늘 할 일" />
-                    <BottomNavigationItem icon="settings" label="오늘 할 일" />
-                    <BottomNavigationItem icon="settings" label="오늘 할 일" />
-                    <BottomNavigationItem icon="settings" label="오늘 할 일" />
+                    <BottomNavigationItem
+                        icon="settings"
+                        label="오늘 할 일"
+                        selected={true}
+                    />
+                    <BottomNavigationItem
+                        icon="settings"
+                        label="오늘 할 일"
+                    />
+                    <BottomNavigationItem
+                        icon="settings"
+                        label="오늘 할 일"
+                    />
+                    <BottomNavigationItem
+                        icon="settings"
+                        label="오늘 할 일"
+                    />
+                    <BottomNavigationItem
+                        icon="settings"
+                        label="오늘 할 일"
+                    />
                 </BottomNavigation>
             )}
 
