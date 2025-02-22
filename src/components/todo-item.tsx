@@ -1,4 +1,4 @@
-import { Checkbox, TextButton } from './material/primitive';
+import { Checkbox, Ripple, TextButton } from './material/primitive';
 
 interface TodoItemProps {
     title: string;
@@ -12,12 +12,15 @@ export const TodoItem = ({
     return (
         <div
             style={{
+                width: '100%',
                 display: 'flex',
                 gap: '8px',
                 minHeight: '80px',
-                padding: '8px 16px',
+                padding: '16px 16px',
+                position: 'relative',
             }}
         >
+            <Ripple />
             <div
                 style={{
                     paddingTop: '4px',
@@ -50,13 +53,11 @@ export const TodoItem = ({
                         justifyContent: 'flex-end',
                     }}
                 >
-                    <TextButton>
-                        <span
-                            className="md-typescale-label-medium"
-                        >
-                            보관함
-                        </span>
-                    </TextButton>
+                    <span
+                        className="md-typescale-label-medium"
+                    >
+                        보관함
+                    </span>
                 </div>
             </div>
         </div>

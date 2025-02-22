@@ -3,6 +3,7 @@ import { BrowserRouter, Navigate, redirect, Route, Routes } from 'react-router';
 import { Test } from './routes/test';
 import { Signin } from './routes/signin';
 import { Main } from './routes/main';
+import { Today } from './routes/main/today';
 
 export const AppRouter = () => {
     return (
@@ -26,7 +27,7 @@ export const AppRouter = () => {
                     />
                     <Route
                         path={paths.main.today.path}
-                        element={<div>Today</div>}
+                        element={<Today />}
                     />
 
                 </Route>
