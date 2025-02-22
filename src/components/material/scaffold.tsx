@@ -2,7 +2,7 @@ interface ScaffoldProps {
     topAppBar?: React.ReactNode;
     bottomBar?: React.ReactNode;
     floatingActionButton?: React.ReactNode;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export const Scaffold = (props: ScaffoldProps) => {
