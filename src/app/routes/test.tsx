@@ -1,5 +1,6 @@
-import { BottomNavigation, BottomNavigationItem, Checkbox, Fab, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton, TopAppBar } from '@/components/material';
+import { BottomNavigation, BottomNavigationItem, Checkbox, Fab, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton, TopAppBar, Divider } from '@/components/material';
 import { Scaffold } from '@/components/scaffold';
+import { TodoItem } from '@/components/material/todo-item';
 import { GoogleSignin } from '@/components/oauth';
 
 export const Test = () => {
@@ -88,23 +89,13 @@ export const Test = () => {
                         Open
                     </TextButton>
                 </div>
-
-                <div>
-                    <IconButton
-                        type="button"
-                    >
-                        <Icon>favorite</Icon>
-                    </IconButton>
-                    <FilledIconButton
-                        type="button"
-                    >
-                        <Icon>favorite</Icon>
-                    </FilledIconButton>
-                </div>
-                <OutlinedButton type="reset">
-                    Reset
-                </OutlinedButton>
             </form>
+            <div>
+                <TodoItem title="타이틀" description="설명" />
+                <Divider />
+                <TodoItem title="타이틀2" description="설명2" checked={true} />
+                <Divider />
+            </div>
         </Scaffold>
     );
 };

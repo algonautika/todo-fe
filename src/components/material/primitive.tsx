@@ -73,3 +73,9 @@ export const Fab = createComponent({
     elementClass: md.MdFab,
     react: React,
 });
+
+export const Divider = createComponent({
+    tagName: 'md-divider',
+    elementClass: md.MdDivider,
+    react: React,
+});
