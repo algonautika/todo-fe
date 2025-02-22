@@ -1,5 +1,5 @@
 import { BottomNavigation, BottomNavigationItem, Checkbox, Fab, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton, TopAppBar } from '@/components/material';
-import { Scaffold } from '@/components/material/scaffold';
+import { Scaffold } from '@/components/scaffold';
 import { GoogleSignin } from '@/components/oauth';
 
 export const Test = () => {
