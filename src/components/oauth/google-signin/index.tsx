@@ -11,6 +11,7 @@ export const GoogleSignin = (props: GoogleSigninProps) => {
         <div
             style={{
                 position: 'relative',
+                width: 'fit-content',
                 height: '40px',
                 borderRadius: '20px',
                 cursor: 'pointer',
