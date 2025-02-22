@@ -1,4 +1,4 @@
-import { Scaffold } from '@/components/material/scaffold';
+import { Scaffold } from '@/components/scaffold';
 import { GoogleSignin } from '@/components/oauth';
 
 export const Signin = () => {
