@@ -8,12 +8,12 @@ const test: Route = {
 const signin: Route = {
     path: '/signin',
 };
-const home: Route = {
-    path: '/home',
+const main: Route = {
+    path: '/main',
 };
 
 export const paths = {
     test,
     signin,
-    home,
+    main,
 } as const;
