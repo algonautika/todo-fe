@@ -1,7 +1,7 @@
 import { BottomNavigation, BottomNavigationItem, Checkbox, Divider, Fab, Icon, OutlinedTextField, Radio, TextButton, TopAppBar } from '@/components/material';
-import { TodoItem } from '@/components/material/todo-item';
 import { GoogleSignin } from '@/components/oauth';
 import { Scaffold } from '@/components/scaffold';
+import { TodoItem } from '@/components/todo-item';
 
 export const Test = () => {
     return (

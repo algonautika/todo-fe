@@ -1,4 +1,4 @@
-import { Checkbox, TextButton } from './primitive';
+import { Checkbox, TextButton } from './material/primitive';
 
 interface TodoItemProps {
     title: string;
