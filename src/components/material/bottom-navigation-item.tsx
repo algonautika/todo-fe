@@ -67,8 +67,8 @@ export const BottomNavigationItem = ({
                 <Ripple ref={ref} />
             </div>
             <span
+                className="md-typescale-label-medium"
                 style={{
-                    fontSize: 'var(--md-sys-typescale-label-medium-size)',
                     color: selected
                         ? 'var(--md-sys-color-primary)'
                         : 'var(--md-sys-color-on-surface)',

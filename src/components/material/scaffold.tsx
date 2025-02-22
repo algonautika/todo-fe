@@ -22,6 +22,7 @@ export const Scaffold = (props: ScaffoldProps) => {
                     width: '100%',
                     height: '100%',
                     position: 'relative',
+                    backgroundColor: 'var(--md-sys-color-surface)',
                 }}
             >
                 <div

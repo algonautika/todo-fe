@@ -1,6 +1,4 @@
-import { Checkbox, Fab, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton, TopAppBar } from '@/components/material';
-import { BottomNavigation } from '@/components/material/bottom-navigation';
-import { BottomNavigationItem } from '@/components/material/bottom-navigation-item';
+import { BottomNavigation, BottomNavigationItem, Checkbox, Fab, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton, TopAppBar } from '@/components/material';
 import { Scaffold } from '@/components/material/scaffold';
 import { GoogleSignin } from '@/components/oauth';
 
