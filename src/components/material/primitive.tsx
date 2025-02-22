@@ -67,3 +67,9 @@ export const Elevation = createComponent({
     elementClass: md.MdElevation,
     react: React,
 });
+
+export const Fab = createComponent({
+    tagName: 'md-fab',
+    elementClass: md.MdFab,
+    react: React,
+});

@@ -1,13 +1,23 @@
-import { Checkbox, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton, TopAppBar } from '@/components/material';
+import { Checkbox, Fab, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton, TopAppBar } from '@/components/material';
+import { Scaffold } from '@/components/material/scaffold';
 import { GoogleSignin } from '@/components/oauth';
 
 export const Test = () => {
     return (
-        <>
-            <TopAppBar
-                type="center-aligned"
-                title="Title"
-            />
+        <Scaffold
+            topAppBar={(
+                <TopAppBar
+                    type="center-aligned"
+                    title="Title"
+                />
+            )}
+
+            floatingActionButton={(
+                <Fab>
+                    <Icon slot="icon">add</Icon>
+                </Fab>
+            )}
+        >
 
             <h1 className="md-typescale-display-medium">
                 Hello Material!
@@ -69,6 +79,6 @@ export const Test = () => {
                     Reset
                 </OutlinedButton>
             </form>
-        </>
+        </Scaffold>
     );
 };
