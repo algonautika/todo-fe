@@ -1,5 +1,5 @@
 import { BottomNavigation, BottomNavigationItem, Fab, Icon, TopAppBar } from '@/components/material';
-import { Scaffold } from '@/components/material/scaffold';
+import { Scaffold } from '@/components/scaffold';
 
 export const Main = () => {
     return (
