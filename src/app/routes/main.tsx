@@ -19,12 +19,12 @@ export const Main = () => {
                         selected={true}
                     />
                     <BottomNavigationItem
-                        icon="settings"
-                        label="오늘 할 일"
+                        icon="list"
+                        label="언젠가 할 일"
                     />
                     <BottomNavigationItem
-                        icon="settings"
-                        label="오늘 할 일"
+                        icon="inbox"
+                        label="보관함"
                     />
                 </BottomNavigation>
             )}
