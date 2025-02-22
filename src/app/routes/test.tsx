@@ -1,5 +1,7 @@
 import { Checkbox, Fab, FilledIconButton, Icon, IconButton, OutlinedButton, OutlinedTextField, Radio, TextButton, TopAppBar } from '@/components/material';
 import { Scaffold } from '@/components/material/scaffold';
+import { BottomNavigation } from '@/components/material/bottom-navigation';
+import { BottomNavigationItem } from '@/components/material/bottom-navigation-item';
 import { GoogleSignin } from '@/components/oauth';
 
 export const Test = () => {
@@ -79,6 +81,13 @@ export const Test = () => {
                     Reset
                 </OutlinedButton>
             </form>
+            <BottomNavigation>
+                <BottomNavigationItem icon="settings" label="오늘 할 일" selected={true} />
+                <BottomNavigationItem icon="settings" label="오늘 할 일" />
+                <BottomNavigationItem icon="settings" label="오늘 할 일" />
+                <BottomNavigationItem icon="settings" label="오늘 할 일" />
+                <BottomNavigationItem icon="settings" label="오늘 할 일" />
+            </BottomNavigation>
         </Scaffold>
     );
 };
