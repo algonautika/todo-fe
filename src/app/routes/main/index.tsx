@@ -31,7 +31,9 @@ export const Main = () => {
             )}
 
             floatingActionButton={(
-                <Fab>
+                <Fab
+                    variant="secondary"
+                >
                     <Icon slot="icon">add</Icon>
                 </Fab>
             )}
