@@ -14,7 +14,7 @@ export const TodoItem = ({
             style={{
                 width: '100%',
                 display: 'flex',
-                gap: '8px',
+                gap: '16px',
                 minHeight: '80px',
                 padding: '16px 16px',
                 position: 'relative',
