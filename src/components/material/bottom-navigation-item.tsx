@@ -60,7 +60,7 @@ export const BottomNavigationItem = ({
                             : 'var(--md-sys-color-on-surface)',
                     }}
                 >
-                    {icon}
+                    { icon }
                 </Icon>
                 <Ripple ref={ref} />
             </div>
@@ -72,7 +72,7 @@ export const BottomNavigationItem = ({
                         : 'var(--md-sys-color-on-surface)',
                 }}
             >
-                {label}
+                { label }
             </span>
         </div>
     );

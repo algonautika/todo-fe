@@ -75,6 +75,14 @@ export default [
                     when: 'always',
                 },
             ],
+            '@stylistic/jsx-curly-spacing': [
+                'warn', {
+                    when: 'never',
+                    children: {
+                        when: 'always',
+                    },
+                },
+            ],
             '@stylistic/padding-line-between-statements': [
                 'warn',
                 {

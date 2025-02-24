@@ -41,7 +41,7 @@ export const TopAppBar = (props: TopAppBarProps) => {
                     scale="title"
                     size="large"
                 >
-                    {props.title}
+                    { props.title }
                 </Typography>
             </div>
 

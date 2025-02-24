@@ -18,7 +18,7 @@ export const BottomNavigation = ({
                 backgroundColor: 'var(--md-sys-color-container)',
             }}
         >
-            {children}
+            { children }
         </div>
     );
 };

@@ -7,7 +7,7 @@ interface AppProviderProps {
 export const AppProvider = (props: AppProviderProps) => {
     return (
         <>
-            {props.children }
+            { props.children }
         </>
     );
 };

@@ -15,7 +15,7 @@ export const Scaffold = (props: ScaffoldProps) => {
                 flexDirection: 'column',
             }}
         >
-            {props.topAppBar}
+            { props.topAppBar }
 
             <div
                 style={{
@@ -32,7 +32,7 @@ export const Scaffold = (props: ScaffoldProps) => {
                         flexDirection: 'column',
                     }}
                 >
-                    {props.children}
+                    { props.children }
                 </div>
 
                 <div
@@ -43,12 +43,12 @@ export const Scaffold = (props: ScaffoldProps) => {
                         bottom: '16px',
                     }}
                 >
-                    {props.floatingActionButton}
+                    { props.floatingActionButton }
                 </div>
 
             </div>
 
-            {props.bottomBar}
+            { props.bottomBar }
 
         </div>
     );

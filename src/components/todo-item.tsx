@@ -40,12 +40,12 @@ export const TodoItem = ({
                 <div
                     className="md-typescale-body-large"
                 >
-                    {title}
+                    { title }
                 </div>
                 <div
                     className="md-typescale-label-small"
                 >
-                    {description}
+                    { description }
                 </div>
                 <div
                     style={{
