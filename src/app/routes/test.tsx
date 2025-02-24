@@ -91,9 +91,16 @@ export const Test = () => {
                 </div>
             </form>
             <div>
-                <TodoItem title="타이틀" description="설명" />
+                <TodoItem
+                    title="타이틀"
+                    description="설명"
+                />
                 <Divider />
-                <TodoItem title="타이틀2" description="설명2" checked={true} />
+                <TodoItem
+                    title="타이틀2"
+                    description="설명2"
+                    checked={true}
+                />
                 <Divider />
             </div>
         </Scaffold>
