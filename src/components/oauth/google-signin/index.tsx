@@ -1,4 +1,4 @@
-import { Ripple } from '@/components/material';
+import { Ripple } from '@/lib/material';
 import NeutralRoundContinue from './web_neutral_rd_ctn.svg?react';
 import React from 'react';
 

@@ -1,4 +1,4 @@
-import { Checkbox, Ripple } from './material/primitive';
+import { Checkbox, Ripple } from '@/lib/material/primitive';
 
 interface TodoItemProps {
     title: string;

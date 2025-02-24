@@ -1,4 +1,4 @@
-import { BottomNavigation, BottomNavigationItem, Fab, Icon, TopAppBar } from '@/components/material';
+import { BottomNavigation, BottomNavigationItem, Fab, Icon, TopAppBar } from '@/lib/material';
 import { Scaffold } from '@/components/scaffold';
 import { Outlet } from 'react-router';
 

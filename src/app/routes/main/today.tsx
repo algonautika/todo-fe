@@ -1,4 +1,4 @@
-import { OutlinedTextField } from '@/components/material';
+import { OutlinedTextField } from '@/lib/material';
 import { TodoItem } from '@/components/todo-item';
 
 export const Today = () => {
