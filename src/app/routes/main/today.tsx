@@ -1,3 +1,4 @@
+import { OutlinedTextField } from '@/components/material';
 import { TodoItem } from '@/components/todo-item';
 
 export const Today = () => {
@@ -21,6 +22,13 @@ export const Today = () => {
                 description="Description"
             />
 
+            <OutlinedTextField
+                type="date"
+            />
+
+            <OutlinedTextField
+                type="time"
+            />
         </div>
     );
 };

@@ -6,17 +6,14 @@ interface BottomNavigationItemProps {
     icon: string;
     label: string;
     selected?: boolean;
-}
-interface BottomNavigationItemProps {
-    icon: string;
-    label: string;
-    selected?: boolean;
+    onClick?: React.DOMAttributes<HTMLDivElement>['onClick'];
 }
 
 export const BottomNavigationItem = ({
     icon,
     label,
     selected = false,
+    onClick,
 }: BottomNavigationItemProps) => {
     const ref = useRef<MdRipple>(null);
     const divRef = useRef<HTMLDivElement>(null);
@@ -38,6 +35,7 @@ export const BottomNavigationItem = ({
                 gap: '4px',
                 minWidth: '48px',
             }}
+            onClick={onClick}
         >
             <div
                 style={{
