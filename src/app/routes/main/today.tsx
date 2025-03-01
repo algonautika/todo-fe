@@ -1,4 +1,3 @@
-import { OutlinedTextField } from '@/lib/material';
 import { TodoItem } from '@/components/todo-item';
 
 export const Today = () => {
@@ -20,14 +19,6 @@ export const Today = () => {
             <TodoItem
                 title="Todo Item"
                 description="Description"
-            />
-
-            <OutlinedTextField
-                type="date"
-            />
-
-            <OutlinedTextField
-                type="time"
             />
         </div>
     );

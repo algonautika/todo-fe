@@ -1,11 +1,9 @@
 import stylistic from '@stylistic/eslint-plugin';
 import parserTs from '@typescript-eslint/parser';
-import type { Linter } from 'eslint';
+import tseslint from 'typescript-eslint';
+import neverthrow from 'eslint-plugin-neverthrow';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import globals from 'globals';
-
-const a = 1;
 
 const customized = stylistic.configs.customize({
     arrowParens: true,
@@ -20,19 +18,32 @@ const customized = stylistic.configs.customize({
     semi: true,
 });
 
-export default [
+export default tseslint.config(
     {
+        ...customized,
+        files: ['eslint.config.ts'],
+    },
+    tseslint.configs.strictTypeChecked.map((config) => ({
+        ...config,
         files: ['**/*.{ts,tsx}'],
+        ignores: ['node_modules', 'eslint.config.ts'],
         languageOptions: {
             parser: parserTs,
-            globals: globals.browser,
+            ecmaVersion: 2025,
+            sourceType: 'module',
+            parserOptions: {
+                projectService: true,
+            },
         },
         plugins: {
+            ...config.plugins,
             ...customized.plugins,
             'react-hooks': reactHooks,
             'react-refresh': reactRefresh,
+            neverthrow,
         },
         rules: {
+            ...config.rules,
             ...customized.rules,
             ...reactHooks.configs.recommended.rules,
             'react-refresh/only-export-components': [
@@ -58,7 +69,9 @@ export default [
                 'warn',
                 {
                     ObjectExpression: 'always',
-                    ObjectPattern: 'always',
+                    ObjectPattern: {
+                        consistent: true,
+                    },
                     ImportDeclaration: {
                         consistent: true,
                     },
@@ -127,6 +140,18 @@ export default [
                     ignoreRegExpLiterals: true,
                 },
             ],
+            '@typescript-eslint/no-unused-vars': [
+                'error',
+                {
+                    args: 'all',
+                    argsIgnorePattern: '^_',
+                    caughtErrors: 'all',
+                    caughtErrorsIgnorePattern: '^_',
+                    destructuredArrayIgnorePattern: '^_',
+                    varsIgnorePattern: '^_',
+                    ignoreRestSiblings: true,
+                },
+            ],
         },
-    },
-] satisfies Linter.Config[];
+    })),
+);

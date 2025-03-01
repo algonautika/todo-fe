@@ -6,6 +6,12 @@ import { createRoot } from 'react-dom/client';
 import resetCss from 'reset-css/reset.css?inline';
 import './index.scss';
 
+// mock server 설정
+if (import.meta.env.DEV) {
+    const { worker } = await import('@/mocks/browser');
+    await worker.start();
+}
+
 // reset css 적용
 const cssStyleSheet = new CSSStyleSheet();
 cssStyleSheet.replaceSync(`@layer {\n ${resetCss} \n} `);

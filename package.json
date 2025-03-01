@@ -1,41 +1,53 @@
 {
-    "name": "todo",
-    "private": true,
-    "version": "0.0.0",
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "tsc -b && vite build",
-        "lint": "eslint .",
-        "preview": "vite preview"
-    },
-    "dependencies": {
-        "@lit/react": "^1.0.7",
-        "@material/material-color-utilities": "^0.3.0",
-        "@material/web": "^2.2.0",
-        "material-symbols": "^0.28.2",
-        "pretendard": "^1.3.9",
-        "react": "^19.0.0",
-        "react-dom": "^19.0.0",
-        "react-router": "^7.2.0",
-        "reset-css": "^5.0.2",
-        "usehooks-ts": "^3.1.1"
-    },
-    "devDependencies": {
-        "@stylistic/eslint-plugin": "^4.0.0",
-        "@types/react": "^19.0.8",
-        "@types/react-dom": "^19.0.3",
-        "@vitejs/plugin-react-swc": "^3.5.0",
-        "eslint-plugin-react-hooks": "^5.0.0",
-        "eslint-plugin-react-refresh": "^0.4.18",
-        "globals": "^15.14.0",
-        "jiti": "^2.4.2",
-        "sass": "^1.85.0",
-        "typescript": "~5.7.2",
-        "typescript-eslint": "^8.22.0",
-        "vite": "^6.1.0",
-        "vite-plugin-svgr": "^4.3.0",
-        "vite-tsconfig-paths": "^5.1.4"
-    },
-    "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0"
+  "name": "todo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@lit/react": "^1.0.7",
+    "@material/material-color-utilities": "^0.3.0",
+    "@material/web": "^2.2.0",
+    "axios": "^1.8.0",
+    "material-symbols": "^0.28.2",
+    "neverthrow": "^8.2.0",
+    "pretendard": "^1.3.9",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.2.0",
+    "reset-css": "^5.0.2",
+    "usehooks-ts": "^3.1.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@stylistic/eslint-plugin": "^4.0.0",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "@typescript-eslint/parser": "^8.25.0",
+    "@vitejs/plugin-react-swc": "^3.5.0",
+    "eslint": "^9.21.0",
+    "eslint-plugin-neverthrow": "^1.1.4",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.18",
+    "globals": "^15.14.0",
+    "jiti": "^2.4.2",
+    "msw": "^2.7.3",
+    "sass": "^1.85.0",
+    "typescript": "~5.7.2",
+    "typescript-eslint": "^8.22.0",
+    "vite": "^6.1.0",
+    "vite-plugin-svgr": "^4.3.0",
+    "vite-tsconfig-paths": "^5.1.4"
+  },
+  "packageManager": "pnpm@9.15.4+sha512.b2dc20e2fc72b3e18848459b37359a32064663e5627a51e4c74b2c29dd8e8e0491483c3abb40789cfd578bf362fb6ba8261b05f0387d76792ed6e23ea3b1b6a0",
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  }
 }
