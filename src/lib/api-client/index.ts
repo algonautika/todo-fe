@@ -1,4 +1,4 @@
-import { RestResponse } from '@/types/api';
+import { RestError, RestResponse, RestSuccess } from '@/types/api';
 import axios, { InternalAxiosRequestConfig, isAxiosError } from 'axios';
 import { err, ok, Result } from 'neverthrow';
 
@@ -17,16 +17,32 @@ const client = axios.create({
 client.interceptors.request.use(authRequestInterceptor);
 
 export const api = {
-    get: async (url: string): Promise<Result<unknown, Error>> => {
+    get: async (url: string): Promise<
+        Result<RestSuccess, RestError | Error>
+    > => { // TODO: 타입 검사 맘에 안듦
         try {
-            const response = await client.get(url);
-            const parse = RestResponse.safeParse(response.data);
+            const response = await client.get<unknown>(url);
+            const responseParseResult = RestResponse.safeParse(response.data);
 
-            if (!parse.success) {
-                return err(parse.error);
+            if (!responseParseResult.success) {
+                return err(new Error(`서버에서 받응 응답이 파싱 가능한 Response형태가 아님\n${JSON.stringify(response.data, null, 4)}`));
             }
 
-            return ok(parse.data.data);
+            const errorParseResult = RestError.safeParse(
+                responseParseResult.data,
+            );
+
+            if (errorParseResult.success) {
+                return err(errorParseResult.data);
+            }
+
+            const successParseResult = RestSuccess.safeParse(response.data);
+
+            if (!successParseResult.success) {
+                return err(new Error(`Invalid response\n${JSON.stringify(response.data, null, 4)}`));
+            }
+
+            return ok(successParseResult.data);
         } catch (error: unknown) {
             if (isAxiosError(error)) {
                 return err(error);
