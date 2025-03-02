@@ -1,4 +1,4 @@
-import { CreateTodo } from '@/components/createTodo';
+import { CreateTodo } from '@/features/todo/components/create-todo';
 import { TodoItem } from '@/components/todo-item';
 
 export const Today = () => {
@@ -17,10 +17,12 @@ export const Today = () => {
                 title="Todo Item"
                 description="Description"
             />
+
             <TodoItem
                 title="Todo Item"
                 description="Description"
             />
+
             <CreateTodo />
         </div>
     );

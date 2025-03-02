@@ -1,5 +1,5 @@
-import { Scaffold } from '@/components/scaffold';
 import { GoogleSignin } from '@/components/oauth';
+import { Scaffold } from '@/components/scaffold';
 import { oauthSignIn } from '@/lib/signin/google';
 
 export const Signin = () => {
