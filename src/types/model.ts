@@ -6,6 +6,11 @@ export const User = z.object({
 
 export const Todo = z.object({
     title: z.string(),
+    description: z.string(),
+    startDate: z.string(),
+    endDate: z.string(),
+    deadline: z.string(),
+    timeZone: z.string(),
 });
 
 export type User = z.infer<typeof User>;

@@ -79,3 +79,9 @@ export const Divider = createComponent({
     elementClass: md.MdDivider,
     react: React,
 });
+
+export const Switch = createComponent({
+    tagName: 'md-switch',
+    elementClass: md.MdSwitch,
+    react: React,
+});

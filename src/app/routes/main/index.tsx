@@ -3,6 +3,10 @@ import { Scaffold } from '@/components/scaffold';
 import { Outlet } from 'react-router';
 
 export const Main = () => {
+    const handleFabClick = () => {
+        window.location.hash = '#create';
+    };
+
     return (
         <Scaffold
             topAppBar={(
@@ -33,6 +37,7 @@ export const Main = () => {
             floatingActionButton={(
                 <Fab
                     variant="secondary"
+                    onClick={handleFabClick}
                 >
                     <Icon slot="icon">add</Icon>
                 </Fab>

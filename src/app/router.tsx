@@ -37,7 +37,7 @@ export const AppRouter = () => {
                     element={
                         user.isOk()
                             ? <Main />
-                            : <Navigate to={paths.signin.path} />
+                            : <Main />
                     }
                 >
                     <Route

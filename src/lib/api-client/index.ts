@@ -53,7 +53,28 @@ export const api = {
             return err(new Error(String(error)));
         }
     },
-    // post: client.post,
+
+    // TODO: data 타입 지정
+    post: async <T>(url: string, data?: any): Promise<Result<T, Error>> => {
+        try {
+            const response = await client.post(url, data);
+            const parse = RestResponse.safeParse(response.data);
+
+            if (!parse.success) {
+                return err(parse.error);
+            }
+
+            return ok(parse.data.data);
+        } catch (error: unknown) {
+            if (isAxiosError(error)) {
+                return err(error);
+            } else if (error instanceof Error) {
+                return err(error);
+            }
+
+            return err(new Error(String(error)));
+        }
+    },
     // put: client.put,
     // delete: client.delete,
     // patch: client.patch,
