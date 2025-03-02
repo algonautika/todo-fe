@@ -4,7 +4,6 @@ import { Todo } from '@/types/model';
 import { LazyValue } from '@/types/api';
 
 export const useCreateTodo = () => {
-    d;
     const useCreate = useCallback((data: Todo) => {
         const [postRes, setPostRes] = useState<LazyValue<Awaited<ReturnType<typeof createTodo>>>>('Loading');
         createTodo(data)
