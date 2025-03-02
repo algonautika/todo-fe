@@ -1,5 +1,6 @@
 import { Scaffold } from '@/components/scaffold';
 import { GoogleSignin } from '@/components/oauth';
+import { oauthSignIn } from '@/lib/signin/google';
 
 export const Signin = () => {
     return (
@@ -17,7 +18,7 @@ export const Signin = () => {
             >
                 <GoogleSignin
                     onClick={() => {
-                        // oauthSignIn();
+                        oauthSignIn();
                     }}
                 />
             </div>

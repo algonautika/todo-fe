@@ -16,9 +16,9 @@ export const handlers = [
     }),
     http.get(`${import.meta.env.VITE_API_URL}/login/authorization/google`, (_resolver) => {
         return new HttpResponse(null, {
-            status: 302,
+            status: 200,
             headers: {
-                'Set-Cookie': 'access_token=test; Path=/; Domain=localhost; HttpOnly; SameSite=Strict',
+                'Set-Cookie': `access_token=test; Path=/; Domain=${import.meta.env.VITE_API_HOST}; HttpOnly; SameSite=None; Secure`,
                 Location: `http://localhost:5173`,
             },
         });
