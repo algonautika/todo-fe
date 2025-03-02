@@ -11,9 +11,15 @@ export const Signin = () => {
                     display: 'flex',
                     placeContent: 'center',
                     placeItems: 'center',
+                    flexDirection: 'column',
+                    gap: '1rem',
                 }}
             >
-                <GoogleSignin />
+                <GoogleSignin
+                    onClick={() => {
+                        // oauthSignIn();
+                    }}
+                />
             </div>
         </Scaffold>
     );
