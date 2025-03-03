@@ -1,48 +1,63 @@
-import { RestError, RestResponse, RestSuccess } from '@/types/api';
-import axios, { InternalAxiosRequestConfig, isAxiosError } from 'axios';
+import { CreationRequest, CreationResponse, GetResponse, RestError } from '@/lib/api-client/types';
+import axios, { AxiosResponse, isAxiosError } from 'axios';
 import { err, ok, Result } from 'neverthrow';
+import { z } from 'zod';
 
-function authRequestInterceptor(config: InternalAxiosRequestConfig) {
-    config.headers.Accept = 'application/json';
-    config.withCredentials = true;
+/**
+ * 해당 schema로 response를 파싱
+ * @param schema
+ * @param response
+ * @returns
+ */
+function parseResponse(
+    schema: z.ZodType,
+    response: AxiosResponse<unknown, unknown>,
+): Result<GetResponse, RestError | Error> {
+    const parseResult = schema.safeParse(response.data);
 
-    return config;
+    if (parseResult.success) {
+        return ok(parseResult.data);
+    }
+
+    const errorParseResult = RestError.safeParse(response.data);
+
+    if (errorParseResult.success) {
+        return err(errorParseResult.data);
+    }
+
+    return err(new Error(`서버의 응답을 파싱할 수 없음\n${JSON.stringify(response.data, null, 4)}`));
 }
 
+/**
+ * API 클라이언트
+ */
 const client = axios.create({
     baseURL: import.meta.env.VITE_API_URL,
     timeout: 10000,
 });
 
-client.interceptors.request.use(authRequestInterceptor);
+client.interceptors.request.use((config) => {
+    config.headers.Accept = 'application/json';
+    config.withCredentials = true;
+
+    return config;
+});
 
 export const api = {
+    /**
+     * GET 요청
+     * @param url
+     * @returns
+     */
     get: async (url: string): Promise<
-        Result<RestSuccess, RestError | Error>
+        Result<GetResponse, RestError | Error>
     > => { // TODO: 타입 검사 맘에 안듦
         try {
-            const response = await client.get<unknown>(url);
-            const responseParseResult = RestResponse.safeParse(response.data);
-
-            if (!responseParseResult.success) {
-                return err(new Error(`서버에서 받응 응답이 파싱 가능한 Response형태가 아님\n${JSON.stringify(response.data, null, 4)}`));
-            }
-
-            const errorParseResult = RestError.safeParse(
-                responseParseResult.data,
+            const response: AxiosResponse<unknown, unknown> = await client.get(
+                url,
             );
 
-            if (errorParseResult.success) {
-                return err(errorParseResult.data);
-            }
-
-            const successParseResult = RestSuccess.safeParse(response.data);
-
-            if (!successParseResult.success) {
-                return err(new Error(`Invalid response\n${JSON.stringify(response.data, null, 4)}`));
-            }
-
-            return ok(successParseResult.data);
+            return parseResponse(GetResponse, response);
         } catch (error: unknown) {
             if (isAxiosError(error)) {
                 return err(error);
@@ -54,17 +69,14 @@ export const api = {
         }
     },
 
-    // TODO: data 타입 지정
-    post: async <T>(url: string, data?: any): Promise<Result<T, Error>> => {
+    // POST 요청
+    post: async (url: string, data: CreationRequest): Promise<
+        Result<CreationResponse, RestError | Error>
+    > => {
         try {
             const response = await client.post(url, data);
-            const parse = RestResponse.safeParse(response.data);
 
-            if (!parse.success) {
-                return err(parse.error);
-            }
-
-            return ok(parse.data.data);
+            return parseResponse(CreationResponse, response);
         } catch (error: unknown) {
             if (isAxiosError(error)) {
                 return err(error);

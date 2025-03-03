@@ -1,11 +1,10 @@
 import { api } from '@/lib/api-client';
+import { TodoCreationRequest } from '@/lib/api-client/types/creation';
 import { Todo } from '@/types/model';
 import { err, ok } from 'neverthrow';
 
-export async function createTodo(data: Todo) {
-    const response = await api.post('/todos', {
-        data,
-    });
+export async function createTodo(data: TodoCreationRequest) {
+    const response = await api.post('/todos', data);
 
     if (response.isErr()) {
         return err(response.error);

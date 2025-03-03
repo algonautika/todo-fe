@@ -140,6 +140,7 @@ export default tseslint.config(
                     ignoreRegExpLiterals: true,
                 },
             ],
+            '@stylistic/indent-binary-ops': ['error', 4],
             '@typescript-eslint/no-unused-vars': [
                 'error',
                 {
@@ -152,6 +153,9 @@ export default tseslint.config(
                     ignoreRestSiblings: true,
                 },
             ],
+            '@typescript-eslint/consistent-type-assertions': ['warn', {
+                assertionStyle: 'never',
+            }],
         },
     })),
 );

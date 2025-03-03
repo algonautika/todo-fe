@@ -1,4 +1,4 @@
-import { LazyValue } from '@/types/api';
+import { LazyValue } from '@/lib/api-client/types';
 import { err } from 'neverthrow';
 import { useEffect, useState } from 'react';
 import { getMe } from '../api';

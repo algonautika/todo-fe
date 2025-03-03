@@ -1,9 +1,9 @@
+import { useCreateTodo } from '@/features/todo/hooks';
+import { TodoCreationRequest } from '@/lib/api-client/types/creation';
 import { Divider, OutlinedTextField, Switch } from '@/lib/material';
 import { FormEventHandler, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { IconText } from '../../../components/IconText';
-import { useCreateTodo } from '@/features/todo/hooks';
-import { Todo } from '@/types/model';
 
 export const CreateTodo = () => {
     const [isVisible, setIsVisible] = useState(window.location.hash === '#create');
@@ -32,7 +32,7 @@ export const CreateTodo = () => {
 
     const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
-        const todoData: Todo = {
+        const todoData: TodoCreationRequest = {
             title,
             description,
             deadline,
