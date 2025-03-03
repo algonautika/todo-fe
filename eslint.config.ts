@@ -142,7 +142,7 @@ export default tseslint.config(
             ],
             '@stylistic/indent-binary-ops': ['error', 4],
             '@typescript-eslint/no-unused-vars': [
-                'error',
+                'warn',
                 {
                     args: 'all',
                     argsIgnorePattern: '^_',
