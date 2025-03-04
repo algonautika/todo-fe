@@ -12,24 +12,37 @@ export const Scaffold = (props: ScaffoldProps) => {
                 width: '100%',
                 height: '100%',
                 display: 'flex',
-                flexDirection: 'column',
+                flexFlow: 'column nowrap',
             }}
         >
-            { props.topAppBar }
+            <div
+                style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexFlow: 'column nowrap',
+                }}
+            >
+
+                { props.topAppBar }
+
+            </div>
 
             <div
                 style={{
                     width: '100%',
-                    height: '100%',
+                    minHeight: 0,
+                    flexGrow: 1,
                     position: 'relative',
                     backgroundColor: 'var(--md-sys-color-surface)',
                 }}
             >
                 <div
                     style={{
+                        width: '100%',
                         height: '100%',
                         display: 'flex',
-                        flexDirection: 'column',
+                        flexFlow: 'column nowrap',
+                        overflowY: 'hidden',
                     }}
                 >
                     { props.children }
@@ -48,8 +61,17 @@ export const Scaffold = (props: ScaffoldProps) => {
 
             </div>
 
-            { props.bottomBar }
+            <div
+                style={{
+                    width: '100%',
+                    display: 'flex',
+                    flexFlow: 'column nowrap',
+                }}
+            >
 
+                { props.bottomBar }
+
+            </div>
         </div>
     );
 };

@@ -53,7 +53,7 @@ export const Test = () => {
             <form
                 style={{
                     display: 'flex',
-                    flexDirection: 'column',
+                    flexFlow: 'column nowrap',
                     alignItems: 'flex-start',
                     gap: '16px',
                 }}

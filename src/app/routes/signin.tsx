@@ -12,7 +12,7 @@ export const Signin = () => {
                     display: 'flex',
                     placeContent: 'center',
                     placeItems: 'center',
-                    flexDirection: 'column',
+                    flexFlow: 'column nowrap',
                     gap: '1rem',
                 }}
             >

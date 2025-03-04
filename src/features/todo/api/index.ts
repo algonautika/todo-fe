@@ -4,26 +4,18 @@ import { api, parseRestBody } from '@/lib/api-client';
 import { RestError } from '@/lib/api-client/types';
 import { TodoCreationRequest, TodoCreationResponse } from '@/lib/api-client/types/creation';
 import { TodoGetResponse } from '@/lib/api-client/types/get';
-import { TodoPreviewListResponse } from '@/lib/api-client/types/preview';
-
-interface GetTodosParams {
-    pageNumber: number;
-    pageSize: number;
-    sort: undefined;
-    preview: undefined;
-}
+import { PreviewListReqeustParams, TodoPreviewListResponse } from '@/lib/api-client/types/preview';
 
 /**
  * Todo 리스트를 가져오는 API
  * @returns
  */
 export async function getTodos(
-    params: GetTodosParams,
+    params: PreviewListReqeustParams,
 ): Promise<Result<TodoPreviewListResponse, RestError | Error>> {
-    const restBody = await api.get(`/api/todos`,
-        {
-            params,
-        },
+    const restBody = await api.get(
+        `/api/todos`,
+        params,
     );
 
     if (restBody.isOk()) {

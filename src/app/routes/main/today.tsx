@@ -17,34 +17,46 @@ export const Today = () => {
                 width: '100%',
                 height: '100%',
                 display: 'flex',
-                flexDirection: 'column',
+                flexFlow: 'column nowrap',
                 placeContent: 'start',
                 placeItems: 'center',
+                overflowY: 'scroll',
             }}
         >
-            {
-                todos.data?.pages.map((page, index) => (
-                    <Fragment key={index}>
-                        {
-                            page.isOk()
-                                ? (
-                                        page.value.list.map((todo) => (
-                                            <TodoItem
-                                                key={todo.id}
-                                                title={todo.title}
-                                                description={todo.description}
-                                            />
-                                        ))
-                                    )
-                                : (
-                                        <div>
-                                            Error
-                                        </div>
-                                    )
-                        }
-                    </Fragment>
-                ))
-            }
+            <div
+                style={{
+                    width: '100%',
+                    height: 'auto',
+                    display: 'flex',
+                    flexFlow: 'column nowrap',
+                    placeContent: 'start',
+                    placeItems: 'center',
+                }}
+            >
+                {
+                    todos.data?.pages.map((page, index) => (
+                        <Fragment key={index}>
+                            {
+                                page.isOk()
+                                    ? (
+                                            page.value.list.map((todo) => (
+                                                <TodoItem
+                                                    key={todo.id}
+                                                    title={todo.title}
+                                                    description={todo.description}
+                                                />
+                                            ))
+                                        )
+                                    : (
+                                            <div>
+                                                Error
+                                            </div>
+                                        )
+                            }
+                        </Fragment>
+                    ))
+                }
+            </div>
             <CreateTodo />
         </div>
     );

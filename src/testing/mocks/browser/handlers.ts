@@ -1,8 +1,25 @@
+import { loremIpsum } from 'lorem-ipsum';
 import { http, HttpResponse } from 'msw';
 
 import { RestError } from '@/lib/api-client/types';
-import { TodoPreviewListResponse } from '@/lib/api-client/types/preview';
-import { User } from '@/types/model';
+import { PreviewListReqeustParams, TodoPreviewListResponse } from '@/lib/api-client/types/preview';
+import { Todo, User } from '@/types/model';
+
+const todos = Array.from({
+    length: 100,
+}, (_, index) => ({
+    id: index + 1,
+    userId: 1,
+    title: `할 일 ${String(index + 1)}`,
+    description: loremIpsum({
+        count: 3,
+        units: 'sentences',
+    }),
+    startDate: '2021-10-01T00:00:00Z',
+    endDate: '2021-10-01T00:00:00Z',
+    deadline: '2021-10-01T00:00:00Z',
+    timeZone: 'Asia/Seoul',
+} satisfies Todo));
 
 export const handlers = [
     http.get(`${import.meta.env.VITE_API_URL}/login/authorization/google`, (_resolver) => {
@@ -35,30 +52,35 @@ export const handlers = [
             });
         }
 
+        const params = new URL(resolver.request.url).searchParams;
+
+        const parse = PreviewListReqeustParams.safeParse({
+            pageNumber: Number(params.get('pageNumber')),
+            pageSize: Number(params.get('pageSize')),
+        });
+
+        if (parse.success) {
+            const params = parse.data;
+
+            return HttpResponse.json<RestError | TodoPreviewListResponse>({
+                list: todos.slice(
+                    params.pageNumber * params.pageSize,
+                    (params.pageNumber + 1) * params.pageSize,
+                ),
+                totalPageSize: Math.ceil(todos.length / params.pageSize),
+                pageNumber: params.pageNumber,
+            });
+        }
+
+        console.log(
+            new URL(resolver.request.url).searchParams,
+        );
+
+        console.log(parse.error);
+
         return HttpResponse.json<RestError | TodoPreviewListResponse>({
-            list: [
-                {
-                    id: 1,
-                    userId: 1,
-                    title: '할 일 1',
-                    description: '할 일 1 설명',
-                    startDate: '2021-10-01T00:00:00Z',
-                    endDate: '2021-10-01T00:00:00Z',
-                    deadline: '2021-10-01T00:00:00Z',
-                    timeZone: 'Asia/Seoul',
-                },
-                {
-                    id: 2,
-                    userId: 1,
-                    title: '할 일 2',
-                    description: '할 일 2 설명',
-                    startDate: '2021-10-01T00:00:00Z',
-                    endDate: '2021-10-01T00:00:00Z',
-                    deadline: '2021-10-01T00:00:00Z',
-                    timeZone: 'Asia/Seoul',
-                },
-            ],
-            totalPageSize: 1,
+            status: 500,
+            message: `Internal Server Error`,
         });
     }),
 ];

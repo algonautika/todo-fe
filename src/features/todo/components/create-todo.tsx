@@ -50,7 +50,7 @@ export const CreateTodo = () => {
                 onSubmit={handleSubmit}
                 style={{
                     display: 'flex',
-                    flexDirection: 'column',
+                    flexFlow: 'column nowrap',
                     position: 'fixed',
                     top: 0,
                     left: 0,

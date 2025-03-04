@@ -13,6 +13,7 @@ export const TodoItem = ({
         <div
             style={{
                 width: '100%',
+                height: 'fit-content',
                 display: 'flex',
                 gap: '16px',
                 minHeight: '80px',
@@ -31,8 +32,9 @@ export const TodoItem = ({
             <div
                 style={{
                     width: '100%',
+                    height: 'fit-content',
                     display: 'flex',
-                    flexDirection: 'column',
+                    flexFlow: 'column nowrap',
                     padding: '0 4px',
                     gap: '4px',
                 }}
@@ -44,6 +46,9 @@ export const TodoItem = ({
                 </div>
                 <div
                     className="md-typescale-label-small"
+                    style={{
+                        height: 'fit-content',
+                    }}
                 >
                     { description }
                 </div>

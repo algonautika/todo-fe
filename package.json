@@ -23,6 +23,7 @@
     "react-dom": "^19.0.0",
     "react-router": "^7.2.0",
     "reset-css": "^5.0.2",
+    "temporal-polyfill": "^0.2.5",
     "usehooks-ts": "^3.1.1",
     "zod": "^3.24.2"
   },
@@ -41,6 +42,7 @@
     "eslint-plugin-react-refresh": "^0.4.18",
     "globals": "^15.14.0",
     "jiti": "^2.4.2",
+    "lorem-ipsum": "^2.0.8",
     "msw": "^2.7.3",
     "sass": "^1.85.0",
     "typescript": "~5.7.2",
