@@ -1,4 +1,5 @@
 import stylistic from '@stylistic/eslint-plugin';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 import parserTs from '@typescript-eslint/parser';
 import importPlugin from 'eslint-plugin-import';
 import neverthrow from 'eslint-plugin-neverthrow';
@@ -20,6 +21,7 @@ const customized = stylistic.configs.customize({
 });
 
 export default tseslint.config(
+    ...pluginQuery.configs['flat/recommended'],
     {
         files: ['**/*.{ts,tsx}'],
         extends: [importPlugin.flatConfigs.recommended, importPlugin.flatConfigs.typescript],
