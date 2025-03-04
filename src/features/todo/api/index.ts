@@ -1,7 +1,6 @@
-import { err, ok } from 'neverthrow';
-
-import { api } from '@/lib/api-client';
+import { api, parseRestBody } from '@/lib/api-client';
 import { TodoCreationRequest, TodoCreationResponse } from '@/lib/api-client/types/creation';
+import { TodoGetResponse } from '@/lib/api-client/types/get';
 import { TodoPreviewListResponse } from '@/lib/api-client/types/preview';
 
 /**
@@ -9,19 +8,15 @@ import { TodoPreviewListResponse } from '@/lib/api-client/types/preview';
  * @returns
  */
 export async function getTodos() {
-    const response = await api.get('/api/todos');
+    const restBody = await api.get('/api/todos');
 
-    if (response.isErr()) {
-        return err(response.error);
-    }
+    return parseRestBody(TodoPreviewListResponse, restBody);
+}
 
-    const parse = TodoPreviewListResponse.safeParse(response.value);
+export async function getTodo(id: string) {
+    const restBody = await api.get(`/api/todos/${id}`);
 
-    if (!parse.success) {
-        return err(parse.error);
-    }
-
-    return ok(parse.data);
+    return parseRestBody(TodoGetResponse, restBody);
 }
 
 /**
@@ -30,17 +25,7 @@ export async function getTodos() {
  * @returns
  */
 export async function createTodo(data: TodoCreationRequest) {
-    const response = await api.post('/todos', data);
+    const restBody = await api.post('/todos', data);
 
-    if (response.isErr()) {
-        return err(response.error);
-    }
-
-    const parse = TodoCreationResponse.safeParse(response.value);
-
-    if (!parse.success) {
-        return err(parse.error);
-    }
-
-    return ok(parse.data);
+    return parseRestBody(TodoCreationResponse, restBody);
 }

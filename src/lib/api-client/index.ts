@@ -26,7 +26,30 @@ function parseResponse<T>(
         return err(errorParseResult.data);
     }
 
-    return err(new Error(`서버의 응답을 파싱할 수 없음\n${JSON.stringify(response.data, null, 4)}`));
+    return err(new Error(`서버의 응답을 파싱할 수 없음\n${String(errorParseResult.error)}`));
+}
+
+/**
+ * Rest Body를 해당 schema로 파싱
+ * @param schema
+ * @param restBody
+ * @returns
+ */
+export function parseRestBody<T, S, E>(
+    schema: z.ZodType<T>,
+    restBody: Result<S, E>,
+) {
+    if (restBody.isErr()) {
+        return restBody.error;
+    }
+
+    const parse = schema.safeParse(restBody.value);
+
+    if (!parse.success) {
+        return parse.error;
+    }
+
+    return ok(parse.data);
 }
 
 /**
