@@ -1,9 +1,10 @@
 import stylistic from '@stylistic/eslint-plugin';
 import parserTs from '@typescript-eslint/parser';
-import tseslint from 'typescript-eslint';
+import importPlugin from 'eslint-plugin-import';
 import neverthrow from 'eslint-plugin-neverthrow';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
 
 const customized = stylistic.configs.customize({
     arrowParens: true,
@@ -19,6 +20,45 @@ const customized = stylistic.configs.customize({
 });
 
 export default tseslint.config(
+    {
+        files: ['**/*.{ts,tsx}'],
+        extends: [importPlugin.flatConfigs.recommended, importPlugin.flatConfigs.typescript],
+        settings: {
+            'import/resolver': {
+                typescript: true,
+            },
+            'import/external-module-folders': ['node_modules'],
+            'import/internal-regex': '^@/',
+        },
+        rules: {
+            'import/no-default-export': 'off',
+            'import/no-unresolved': 'off',
+            'import/no-named-as-default-member': 'off',
+            'import/default': 'off',
+            'import/order': [
+                'warn',
+                {
+                    groups: [
+                        'builtin',
+                        'external',
+                        'internal',
+                        'parent',
+                        'sibling',
+                        'index',
+                        'object',
+                        'type',
+                    ],
+                    'newlines-between': 'always',
+                    named: true,
+                    alphabetize: {
+                        order: 'asc',
+                        caseInsensitive: true,
+                    },
+                    warnOnUnassignedImports: true,
+                },
+            ],
+        },
+    },
     {
         ...customized,
         files: ['eslint.config.ts'],

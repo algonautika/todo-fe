@@ -1,8 +1,10 @@
+import { FormEventHandler, useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+
 import { useCreateTodo } from '@/features/todo/hooks';
 import { TodoCreationRequest } from '@/lib/api-client/types/creation';
 import { Divider, OutlinedTextField, Switch } from '@/lib/material';
-import { FormEventHandler, useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
+
 import { IconText } from '../../../components/IconText';
 
 export const CreateTodo = () => {

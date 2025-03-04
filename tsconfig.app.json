@@ -34,6 +34,6 @@
         "src"
     ],
     "exclude": [
-        "src/mocks/node"
+        "src/testing/mocks/node"
     ]
 }

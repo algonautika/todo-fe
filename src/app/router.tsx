@@ -1,6 +1,8 @@
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
+
 import { paths } from '@/config/paths';
 import { useMe } from '@/features/me/hooks';
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router';
+
 import { Main } from './routes/main';
 import { Today } from './routes/main/today';
 import { Signin } from './routes/signin';
@@ -37,7 +39,7 @@ export const AppRouter = () => {
                     element={
                         user.isOk()
                             ? <Main />
-                            : <Main />
+                            : <Navigate to={paths.signin.path} />
                     }
                 >
                     <Route

@@ -1,5 +1,6 @@
-import { Icon, IconButton } from '.';
 import { Typography } from './typography';
+
+import { Icon, IconButton } from '.';
 
 interface TopAppBarProps {
     type: 'center-aligned';

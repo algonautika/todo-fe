@@ -1,9 +1,10 @@
-import { api } from '@/lib/api-client';
-import { User } from '@/types/model';
 import { err, ok } from 'neverthrow';
 
+import { api } from '@/lib/api-client';
+import { User } from '@/types/model';
+
 export async function getMe() {
-    const response = await api.get('/users/me');
+    const response = await api.get('/api/users/me');
 
     if (response.isErr()) {
         return err(response.error);

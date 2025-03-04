@@ -1,18 +1,20 @@
 import { z } from 'zod';
-import * as model from '@/types/model';
+
 import * as creation from './creation';
+import * as get from './get';
 import * as preview from './preview';
 
+export const PreviewResponse = preview.TodoPreviewResponse;
+
 export const GetResponse = z.union([
-    model.User,
-    model.Todo,
+    preview.TodoPreviewListResponse,
+    get.UserGetResponse,
+    get.TodoGetResponse,
 ]);
 
 export const CreationRequest = creation.TodoCreationRequest;
 
 export const CreationResponse = creation.TodoCreationResponse;
-
-export const PreviewResponse = preview.TodoPreviewResponse;
 
 export type GetResponse = z.infer<typeof GetResponse>;
 

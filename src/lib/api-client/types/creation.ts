@@ -1,5 +1,6 @@
-import { Todo } from '@/types/model';
 import { z } from 'zod';
+
+import { Todo } from '@/types/model';
 
 export const TodoCreationRequest = Todo.pick({
     title: true,

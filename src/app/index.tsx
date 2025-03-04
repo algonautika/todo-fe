@@ -1,6 +1,7 @@
 import { applyTheme, argbFromHex, themeFromSourceColor } from '@material/material-color-utilities';
 import { useEffect, useMemo } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
+
 import { AppRouter } from './router';
 
 export const App = () => {

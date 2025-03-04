@@ -1,14 +1,16 @@
-import { App } from '@/app';
 import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
 import 'material-symbols';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import resetCss from 'reset-css/reset.css?inline';
+
+import { App } from '@/app';
+
 import './index.scss';
 
 // mock server 설정
 if (import.meta.env.DEV) {
-    const { worker } = await import('@/mocks/browser');
+    const { worker } = await import('@/testing/mocks/browser');
     await worker.start();
 }
 

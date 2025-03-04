@@ -1,6 +1,9 @@
-import * as model from '@/types/model';
 import { z } from 'zod';
 
-export const GetResponse = model.Todo;
+import * as model from '@/types/model';
 
-export type GetResponse = z.infer<typeof GetResponse>;
+export const UserGetResponse = model.User;
+
+export const TodoGetResponse = model.Todo;
+
+export type TodoGetResponse = z.infer<typeof TodoGetResponse>;

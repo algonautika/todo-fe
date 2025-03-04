@@ -1,6 +1,7 @@
-import { BottomNavigation, BottomNavigationItem, Fab, Icon, TopAppBar } from '@/lib/material';
-import { Scaffold } from '@/components/scaffold';
 import { Outlet } from 'react-router';
+
+import { Scaffold } from '@/components/scaffold';
+import { BottomNavigation, BottomNavigationItem, Fab, Icon, TopAppBar } from '@/lib/material';
 
 export const Main = () => {
     const handleFabClick = () => {

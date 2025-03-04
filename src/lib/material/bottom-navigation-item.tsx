@@ -1,6 +1,7 @@
-import { useEffect, useRef } from 'react';
-import { Icon, Ripple } from './primitive';
 import { MdRipple } from '@material/web/all';
+import { useEffect, useRef } from 'react';
+
+import { Icon, Ripple } from './primitive';
 
 interface BottomNavigationItemProps {
     icon: string;

@@ -1,6 +1,8 @@
-import { LazyValue } from '@/lib/api-client/types';
 import { err } from 'neverthrow';
 import { useEffect, useState } from 'react';
+
+import { LazyValue } from '@/lib/api-client/types';
+
 import { getMe } from '../api';
 
 export const useMe = () => {

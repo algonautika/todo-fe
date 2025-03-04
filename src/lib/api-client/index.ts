@@ -1,7 +1,8 @@
-import { CreationRequest, CreationResponse, GetResponse, RestError } from '@/lib/api-client/types';
 import axios, { AxiosResponse, isAxiosError } from 'axios';
 import { err, ok, Result } from 'neverthrow';
 import { z } from 'zod';
+
+import { CreationRequest, CreationResponse, GetResponse, RestError } from '@/lib/api-client/types';
 
 /**
  * 해당 schema로 response를 파싱
@@ -9,10 +10,10 @@ import { z } from 'zod';
  * @param response
  * @returns
  */
-function parseResponse(
-    schema: z.ZodType,
+function parseResponse<T>(
+    schema: z.ZodType<T>,
     response: AxiosResponse<unknown, unknown>,
-): Result<GetResponse, RestError | Error> {
+): Result<T, RestError | Error> {
     const parseResult = schema.safeParse(response.data);
 
     if (parseResult.success) {
