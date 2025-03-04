@@ -2,6 +2,7 @@ import { applyTheme, argbFromHex, themeFromSourceColor } from '@material/materia
 import { useEffect, useMemo } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
+import { AppProvider } from './provider';
 import { AppRouter } from './router';
 
 export const App = () => {
@@ -21,7 +22,9 @@ export const App = () => {
 
     return (
         <>
-            <AppRouter />
+            <AppProvider>
+                <AppRouter />
+            </AppProvider>
         </>
     );
 };

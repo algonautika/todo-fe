@@ -35,21 +35,21 @@ function parseResponse<T>(
  * @param restBody
  * @returns
  */
-export function parseRestBody<T, S, E>(
+export function parseRestBody<T>(
     schema: z.ZodType<T>,
-    restBody: Result<S, E>,
-) {
-    if (restBody.isErr()) {
-        return restBody.error;
+    restBody: unknown, // TODO: restBody가 Result로 들어오지 않도록 타입 제한 걸기
+): Result<T, z.ZodError<T> | Error> {
+    const parse = schema.safeParse(restBody);
+
+    if (parse.success) {
+        return ok(parse.data);
     }
 
-    const parse = schema.safeParse(restBody.value);
-
-    if (!parse.success) {
-        return parse.error;
+    if (RestError.safeParse(parse.error).success) {
+        return err(parse.error);
     }
 
-    return ok(parse.data);
+    return err(new Error(`서버의 응답을 파싱할 수 없음\n${String(parse.error)}`));
 }
 
 /**
@@ -73,12 +73,16 @@ export const api = {
      * @param url
      * @returns
      */
-    get: async (url: string): Promise<
-        Result<GetResponse, RestError | Error>
-    > => { // TODO: 타입 검사 맘에 안듦
+    get: async (
+        url: string,
+        params?: unknown,
+    ): Promise<Result<GetResponse, RestError | Error>> => {
         try {
             const response: AxiosResponse<unknown, unknown> = await client.get(
                 url,
+                {
+                    params: params,
+                },
             );
 
             return parseResponse(GetResponse, response);

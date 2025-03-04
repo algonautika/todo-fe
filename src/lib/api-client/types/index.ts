@@ -24,8 +24,6 @@ export type CreationResponse = z.infer<typeof CreationResponse>;
 
 export type PreviewResponse = z.infer<typeof PreviewResponse>;
 
-export type LazyValue<T> = 'Loading' | T;
-
 export const RestError = z.object({
     status: z.number(),
     message: z.string(),

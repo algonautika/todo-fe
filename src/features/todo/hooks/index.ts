@@ -1,46 +1,29 @@
-import { err } from 'neverthrow';
-import { useCallback, useState } from 'react';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { LazyValue } from '@/lib/api-client/types';
-import { TodoCreationRequest } from '@/lib/api-client/types/creation';
+import { getTodos } from '../api';
 
-import { createTodo, getTodos } from '../api';
-
-export const useTodos = () => {
-    const [todos, setTodos] = useState<LazyValue<Awaited<ReturnType<typeof getTodos>>>>('Loading');
-
-    const fetch = useCallback(() => {
-        getTodos()
-            .then((response) => {
-                setTodos(response);
-            })
-            .catch((error: unknown) => {
-                setTodos(err(new Error(String(error))));
+export const useTodos = (pageSize: number) => {
+    return useInfiniteQuery({
+        queryKey: [
+            'todos', {
+                pageSize,
+            },
+        ],
+        queryFn: async (p) => {
+            return await getTodos({
+                pageNumber: p.pageParam,
+                pageSize,
+                sort: undefined,
+                preview: undefined,
             });
-    }, []);
-
-    return {
-        fetch,
-        todos,
-    };
+        },
+        initialPageParam: 0,
+        getNextPageParam: (lastPage) => {
+            return 1; // TODO
+        },
+    });
 };
 
 export const useCreateTodo = () => {
-    const [todo, setTodo] = useState<LazyValue<Awaited<ReturnType<typeof createTodo>>>>('Loading');
-
-    const create = useCallback(
-        (data: TodoCreationRequest) => {
-            createTodo(data)
-                .then((result) => {
-                    setTodo(result);
-                })
-                .catch((error: unknown) => {
-                    setTodo(err(new Error(String(error))));
-                });
-        }, []);
-
-    return {
-        create,
-        todo,
-    };
+    // TODO: tanstack을 이용해서 todo 생성
 };

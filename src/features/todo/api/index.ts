@@ -1,22 +1,50 @@
+import { err, Result } from 'neverthrow';
+
 import { api, parseRestBody } from '@/lib/api-client';
+import { RestError } from '@/lib/api-client/types';
 import { TodoCreationRequest, TodoCreationResponse } from '@/lib/api-client/types/creation';
 import { TodoGetResponse } from '@/lib/api-client/types/get';
 import { TodoPreviewListResponse } from '@/lib/api-client/types/preview';
+
+interface GetTodosParams {
+    pageNumber: number;
+    pageSize: number;
+    sort: undefined;
+    preview: undefined;
+}
 
 /**
  * Todo 리스트를 가져오는 API
  * @returns
  */
-export async function getTodos() {
-    const restBody = await api.get('/api/todos');
+export async function getTodos(
+    params: GetTodosParams,
+): Promise<Result<TodoPreviewListResponse, RestError | Error>> {
+    const restBody = await api.get(`/api/todos`,
+        {
+            params,
+        },
+    );
 
-    return parseRestBody(TodoPreviewListResponse, restBody);
+    if (restBody.isOk()) {
+        return parseRestBody(
+            TodoPreviewListResponse, restBody.value,
+        );
+    }
+
+    return err(restBody.error);
 }
 
-export async function getTodo(id: string) {
+export async function getTodo(
+    id: string,
+): Promise<Result<TodoGetResponse, RestError | Error>> {
     const restBody = await api.get(`/api/todos/${id}`);
 
-    return parseRestBody(TodoGetResponse, restBody);
+    if (restBody.isOk()) {
+        return parseRestBody(TodoGetResponse, restBody.value);
+    }
+
+    return err(restBody.error);
 }
 
 /**
@@ -27,5 +55,9 @@ export async function getTodo(id: string) {
 export async function createTodo(data: TodoCreationRequest) {
     const restBody = await api.post('/todos', data);
 
-    return parseRestBody(TodoCreationResponse, restBody);
+    if (restBody.isOk()) {
+        return parseRestBody(TodoCreationResponse, restBody);
+    }
+
+    return err(restBody.error);
 }

@@ -11,11 +11,6 @@ import { Test } from './routes/test';
 export const AppRouter = () => {
     const user = useMe();
 
-    if (user === 'Loading') {
-        // TODO: Loading component 추가하기
-        return <></>;
-    }
-
     return (
         <BrowserRouter>
             <Routes>
@@ -37,9 +32,11 @@ export const AppRouter = () => {
                 <Route
                     path={paths.main.path}
                     element={
-                        user.isOk()
-                            ? <Main />
-                            : <Navigate to={paths.signin.path} />
+                        user.data === undefined
+                            ? <div>Loading...</div>
+                            : (user.data.isOk()
+                                    ? <Main />
+                                    : <Navigate to={paths.signin.path} />)
                     }
                 >
                     <Route

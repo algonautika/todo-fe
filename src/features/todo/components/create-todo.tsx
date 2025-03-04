@@ -1,7 +1,6 @@
 import { FormEventHandler, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-import { useCreateTodo } from '@/features/todo/hooks';
 import { TodoCreationRequest } from '@/lib/api-client/types/creation';
 import { Divider, OutlinedTextField, Switch } from '@/lib/material';
 
@@ -16,7 +15,6 @@ export const CreateTodo = () => {
     const [deadline, setDeadline] = useState('');
     const [startDate, setStartDate] = useState('');
     const [endDate, setEndDate] = useState('');
-    const todoCreation = useCreateTodo();
 
     useEffect(() => {
         const handleHashChange = () => {
@@ -44,8 +42,6 @@ export const CreateTodo = () => {
         };
         console.log('Todo 데이터 전송:', todoData);
         window.location.hash = '';
-
-        todoCreation.create(todoData);
     };
 
     return createPortal(
