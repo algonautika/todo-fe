@@ -1,4 +1,5 @@
-import { Checkbox, Ripple } from '@/lib/material/primitive';
+import { Checkbox, ListItem, Ripple } from '@/lib/material/primitive';
+import { Typography } from '@/lib/material/typography';
 
 interface TodoItemProps {
     title: string;
@@ -10,61 +11,69 @@ export const TodoItem = ({
     title, description, checked = false,
 }: TodoItemProps) => {
     return (
-        <div
+        <ListItem
             style={{
                 width: '100%',
                 height: 'fit-content',
-                display: 'flex',
                 gap: '16px',
-                minHeight: '80px',
-                padding: '16px 16px',
                 position: 'relative',
             }}
         >
             <Ripple />
             <div
                 style={{
-                    paddingTop: '4px',
-                }}
-            >
-                <Checkbox checked={checked} />
-            </div>
-            <div
-                style={{
                     width: '100%',
                     height: 'fit-content',
                     display: 'flex',
-                    flexFlow: 'column nowrap',
-                    padding: '0 4px',
-                    gap: '4px',
+                    gap: '16px',
+                    flexFlow: 'row nowrap',
                 }}
             >
                 <div
-                    className="md-typescale-body-large"
+                    style={{
+                        paddingTop: '4px',
+                    }}
                 >
-                    { title }
+                    <Checkbox checked={checked} />
                 </div>
                 <div
-                    className="md-typescale-label-small"
                     style={{
+                        minWidth: 0,
                         height: 'fit-content',
-                    }}
-                >
-                    { description }
-                </div>
-                <div
-                    style={{
                         display: 'flex',
-                        justifyContent: 'flex-end',
+                        flexFlow: 'column nowrap',
+                        flex: '1 0 0%',
+                        gap: '4px',
                     }}
                 >
-                    <span
-                        className="md-typescale-label-medium"
+                    <Typography
+                        scale="body"
+                        size="large"
                     >
-                        보관함
-                    </span>
+                        { title }
+                    </Typography>
+
+                    <Typography
+                        scale="label"
+                        size="small"
+                    >
+                        { description }
+                    </Typography>
+                    <div
+                        style={{
+                            display: 'flex',
+                            justifyContent: 'flex-end',
+                        }}
+                    >
+                        <Typography
+                            scale="label"
+                            size="medium"
+                        >
+                            보관함
+                        </Typography>
+                    </div>
                 </div>
             </div>
-        </div>
+        </ListItem>
     );
 };

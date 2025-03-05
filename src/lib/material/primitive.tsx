@@ -85,3 +85,15 @@ export const Switch = createComponent({
     elementClass: md.MdSwitch,
     react: React,
 });
+
+export const List = createComponent({
+    tagName: 'md-list',
+    elementClass: md.MdList,
+    react: React,
+});
+
+export const ListItem = createComponent({
+    tagName: 'md-list-item',
+    elementClass: md.MdListItem,
+    react: React,
+});

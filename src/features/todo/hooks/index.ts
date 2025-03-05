@@ -19,7 +19,17 @@ export const useTodos = (pageSize: number) => {
         },
         initialPageParam: 0,
         getNextPageParam: (lastPage) => {
-            return 1; // TODO
+            if (lastPage.isErr()) {
+                return undefined;
+            }
+
+            const { totalPageSize, pageNumber } = lastPage.value;
+
+            if (totalPageSize <= pageNumber + 1) {
+                return undefined;
+            }
+
+            return pageNumber + 1; // TODO
         },
     });
 };
