@@ -82,26 +82,30 @@ export const Today = () => {
             >
                 { pages() }
             </List>
-            <InView
-                as="div"
-                style={{
-                    width: '100%',
-                    height: 'fit-content',
-                    display: 'flex',
-                    placeContent: 'center',
-                    placeItems: 'center',
-                    padding: '8px',
-                }}
-                onChange={(inView) => {
-                    if (inView) {
-                        todos.fetchNextPage()
-                            .then()
-                            .catch(console.error);
-                    }
-                }}
-            >
-                <CircularProgress indeterminate />
-            </InView>
+            {
+                todos.hasNextPage
+                && (
+                    <InView
+                        as="div"
+                        style={{
+                            width: '100%',
+                            height: 'fit-content',
+                            display: 'flex',
+                            placeContent: 'center',
+                            placeItems: 'center',
+                        }}
+                        onChange={(inView) => {
+                            if (inView) {
+                                todos.fetchNextPage()
+                                    .then()
+                                    .catch(console.error);
+                            }
+                        }}
+                    >
+                        <CircularProgress indeterminate />
+                    </InView>
+                )
+            }
             <CreateTodo />
         </div>
     );
