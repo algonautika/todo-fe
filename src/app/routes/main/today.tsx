@@ -1,4 +1,5 @@
 import { Fragment, useCallback } from 'react';
+import { InView } from 'react-intersection-observer';
 
 import { ErrorResult } from '@/components/ErrorResult';
 import { TodoItem } from '@/components/todo-item';
@@ -67,9 +68,6 @@ export const Today = () => {
                 placeItems: 'center',
                 overflowY: 'scroll',
             }}
-            onScroll={(e) => {
-                console.log();
-            }}
         >
             <List
 
@@ -84,6 +82,15 @@ export const Today = () => {
             >
                 { pages() }
             </List>
+            <InView
+                onChange={(inView) => {
+                    if (inView) {
+                        todos.fetchNextPage()
+                            .then()
+                            .catch(console.error);
+                    }
+                }}
+            />
             <CreateTodo />
         </div>
     );
