@@ -14,6 +14,7 @@ export const Todo = z.object({
     endDate: z.string().datetime(),
     deadline: z.string().datetime(),
     timeZone: z.string(),
+    checked: z.boolean(),
 });
 
 export type User = z.infer<typeof User>;

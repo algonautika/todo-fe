@@ -1,17 +1,15 @@
-import { Checkbox, ListItem, Ripple } from '@/lib/material/primitive';
+import { TodoPreviewResponse } from '@/lib/api-client/types/preview';
+import { Checkbox, ListItem } from '@/lib/material/primitive';
 import { Typography } from '@/lib/material/typography';
 
 interface TodoItemProps {
-    title: string;
-    description: string;
-    checked?: boolean;
+    todoPreview: TodoPreviewResponse;
 }
 
-export const TodoItem = ({
-    title, description, checked = false,
-}: TodoItemProps) => {
+export const TodoItem = (props: TodoItemProps) => {
     return (
         <ListItem
+            type="button"
             style={{
                 width: '100%',
                 height: 'fit-content',
@@ -19,7 +17,6 @@ export const TodoItem = ({
                 position: 'relative',
             }}
         >
-            <Ripple />
             <div
                 style={{
                     width: '100%',
@@ -34,7 +31,7 @@ export const TodoItem = ({
                         paddingTop: '4px',
                     }}
                 >
-                    <Checkbox checked={checked} />
+                    <Checkbox checked={props.todoPreview.checked} />
                 </div>
                 <div
                     style={{
@@ -50,14 +47,14 @@ export const TodoItem = ({
                         scale="body"
                         size="large"
                     >
-                        { title }
+                        { props.todoPreview.title }
                     </Typography>
 
                     <Typography
                         scale="label"
                         size="small"
                     >
-                        { description }
+                        { props.todoPreview.description }
                     </Typography>
                     <div
                         style={{

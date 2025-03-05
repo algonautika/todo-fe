@@ -31,6 +31,19 @@ export const useTodos = (pageSize: number) => {
 
             return pageNumber + 1; // TODO
         },
+        getPreviousPageParam: (firstPage) => {
+            if (firstPage.isErr()) {
+                return undefined;
+            }
+
+            const { pageNumber } = firstPage.value;
+
+            if (pageNumber <= 0) {
+                return undefined;
+            }
+
+            return pageNumber - 1; // TODO
+        },
     });
 };
 

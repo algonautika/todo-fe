@@ -1,24 +1,60 @@
-import { Fragment } from 'react';
+import { Fragment, useCallback } from 'react';
 
+import { ErrorResult } from '@/components/ErrorResult';
 import { TodoItem } from '@/components/todo-item';
 import { CreateTodo } from '@/features/todo/components/create-todo';
 import { useTodos } from '@/features/todo/hooks';
-import { List, ListItem, TextButton } from '@/lib/material';
+import { TodoPreviewResponse } from '@/lib/api-client/types/preview';
+import { List } from '@/lib/material';
 import { Typography } from '@/lib/material/typography';
 
 export const Today = () => {
     const todos = useTodos(10);
 
-    if (todos.isLoading) {
+    const createItem = useCallback(
+        (todoPreview: TodoPreviewResponse) => (
+            <TodoItem
+                key={`todo-item:${String(todoPreview.id)}`}
+                todoPreview={todoPreview}
+            />
+        ), []);
+
+    const pages = useCallback(() => {
+        if (todos.status === 'pending') {
+            return (
+                <Typography
+                    scale="body"
+                    size="medium"
+                >
+                    Loading
+                </Typography>
+            );
+        }
+
+        if (todos.status === 'error') {
+            return (
+                <ErrorResult err={todos.error} />
+            );
+        }
+
         return (
-            <Typography
-                scale="display"
-                size="small"
-            >
-                Loading...
-            </Typography>
+            <>
+                {
+                    todos.data.pages.map((page, index) => {
+                        return (
+                            <Fragment key={`page:${String(index)}`}>
+                                {
+                                    page.isErr()
+                                        ? <ErrorResult err={page.error} />
+                                        : page.value.list.map(createItem)
+                                }
+                            </Fragment>
+                        );
+                    })
+                }
+            </>
         );
-    }
+    }, [todos.data, todos.status, todos.error, createItem]);
 
     return (
         <div
@@ -31,8 +67,12 @@ export const Today = () => {
                 placeItems: 'center',
                 overflowY: 'scroll',
             }}
+            onScroll={(e) => {
+                console.log();
+            }}
         >
             <List
+
                 style={{
                     width: '100%',
                     height: 'auto',
@@ -42,29 +82,7 @@ export const Today = () => {
                     placeItems: 'center',
                 }}
             >
-                {
-                    todos.data?.pages.map((page, index) => (
-                        <Fragment key={`page:${String(index)}`}>
-                            {
-                                page.isOk()
-                                    ? (
-                                            page.value.list.map((todo) => (
-                                                <TodoItem
-                                                    key={`todo-item:${String(todo.id)}`}
-                                                    title={todo.title}
-                                                    description={todo.description}
-                                                />
-                                            ))
-                                        )
-                                    : (
-                                            <div>
-                                                Error
-                                            </div>
-                                        )
-                            }
-                        </Fragment>
-                    ))
-                }
+                { pages() }
             </List>
             <CreateTodo />
         </div>

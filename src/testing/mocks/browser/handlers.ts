@@ -1,5 +1,5 @@
 import { loremIpsum } from 'lorem-ipsum';
-import { http, HttpResponse } from 'msw';
+import { delay, http, HttpResponse } from 'msw';
 
 import { RestError } from '@/lib/api-client/types';
 import { PreviewListReqeustParams, TodoPreviewListResponse } from '@/lib/api-client/types/preview';
@@ -19,6 +19,7 @@ const todos = Array.from({
     endDate: '2021-10-01T00:00:00Z',
     deadline: '2021-10-01T00:00:00Z',
     timeZone: 'Asia/Seoul',
+    checked: false,
 } satisfies Todo));
 
 export const handlers = [
@@ -44,7 +45,7 @@ export const handlers = [
             email: 'test@algo.note',
         });
     }),
-    http.get(`${import.meta.env.VITE_API_URL}/api/todos`, (resolver) => {
+    http.get(`${import.meta.env.VITE_API_URL}/api/todos`, async (resolver) => {
         if (resolver.cookies['access_token'] !== 'test') {
             return HttpResponse.json<RestError | TodoPreviewListResponse>({
                 status: 401,
@@ -77,6 +78,8 @@ export const handlers = [
         );
 
         console.log(parse.error);
+
+        await delay(5000);
 
         return HttpResponse.json<RestError | TodoPreviewListResponse>({
             status: 500,

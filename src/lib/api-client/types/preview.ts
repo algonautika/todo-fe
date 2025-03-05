@@ -26,6 +26,7 @@ export const TodoPreviewResponse = Todo.pick({
     endDate: true,
     deadline: true,
     timeZone: true,
+    checked: true,
 });
 
 export const TodoPreviewListResponse = listResponse(TodoPreviewResponse);
