@@ -71,6 +71,7 @@ export const BottomNavigationItem = ({
                     color: selected
                         ? 'var(--md-sys-color-primary)'
                         : 'var(--md-sys-color-on-surface)',
+                    fontWeight: selected ? 'bold' : 'normal',
                 }}
             >
                 { label }

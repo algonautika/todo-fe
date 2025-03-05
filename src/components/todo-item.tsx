@@ -13,10 +13,20 @@ export const TodoItem = (props: TodoItemProps) => {
             style={{
                 width: '100%',
                 height: 'fit-content',
-                gap: '16px',
                 position: 'relative',
             }}
         >
+
+            <div
+                slot="start"
+                style={{
+                    height: '100%',
+                    paddingTop: '2px',
+                }}
+            >
+                <Checkbox checked={props.todoPreview.checked} />
+            </div>
+
             <div
                 style={{
                     width: '100%',
@@ -26,13 +36,6 @@ export const TodoItem = (props: TodoItemProps) => {
                     flexFlow: 'row nowrap',
                 }}
             >
-                <div
-                    style={{
-                        paddingTop: '4px',
-                    }}
-                >
-                    <Checkbox checked={props.todoPreview.checked} />
-                </div>
                 <div
                     style={{
                         minWidth: 0,

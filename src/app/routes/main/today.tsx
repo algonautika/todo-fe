@@ -6,7 +6,7 @@ import { TodoItem } from '@/components/todo-item';
 import { CreateTodo } from '@/features/todo/components/create-todo';
 import { useTodos } from '@/features/todo/hooks';
 import { TodoPreviewResponse } from '@/lib/api-client/types/preview';
-import { List } from '@/lib/material';
+import { CircularProgress, List } from '@/lib/material';
 import { Typography } from '@/lib/material/typography';
 
 export const Today = () => {
@@ -83,6 +83,15 @@ export const Today = () => {
                 { pages() }
             </List>
             <InView
+                as="div"
+                style={{
+                    width: '100%',
+                    height: 'fit-content',
+                    display: 'flex',
+                    placeContent: 'center',
+                    placeItems: 'center',
+                    padding: '8px',
+                }}
                 onChange={(inView) => {
                     if (inView) {
                         todos.fetchNextPage()
@@ -90,7 +99,9 @@ export const Today = () => {
                             .catch(console.error);
                     }
                 }}
-            />
+            >
+                <CircularProgress indeterminate />
+            </InView>
             <CreateTodo />
         </div>
     );

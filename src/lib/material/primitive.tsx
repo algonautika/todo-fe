@@ -97,3 +97,15 @@ export const ListItem = createComponent({
     elementClass: md.MdListItem,
     react: React,
 });
+
+export const CircularProgress = createComponent({
+    tagName: 'md-circular-progress',
+    elementClass: md.MdCircularProgress,
+    react: React,
+});
+
+export const LinearProgress = createComponent({
+    tagName: 'md-linear-progress',
+    elementClass: md.MdLinearProgress,
+    react: React,
+});
