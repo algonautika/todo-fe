@@ -92,14 +92,17 @@ export const Test = () => {
             </form>
             <div>
                 <TodoItem
-                    title="타이틀"
-                    description="설명"
-                />
-                <Divider />
-                <TodoItem
-                    title="타이틀2"
-                    description="설명2"
-                    checked={true}
+                    todoPreview={{
+                        id: 1,
+                        userId: 1,
+                        title: '할 일 1',
+                        description: '할 일 1',
+                        startDate: '2021-10-01T00:00:00Z',
+                        endDate: '2021-10-01T00:00:00Z',
+                        deadline: '2021-10-01T00:00:00Z',
+                        timeZone: 'Asia/Seoul',
+                        checked: false,
+                    }}
                 />
                 <Divider />
             </div>

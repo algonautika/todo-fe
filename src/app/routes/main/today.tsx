@@ -66,11 +66,10 @@ export const Today = () => {
                 flexFlow: 'column nowrap',
                 placeContent: 'start',
                 placeItems: 'center',
-                overflowY: 'scroll',
+                overflow: 'scroll',
             }}
         >
             <List
-
                 style={{
                     width: '100%',
                     height: 'auto',
@@ -106,7 +105,11 @@ export const Today = () => {
                     </InView>
                 )
             }
-            <CreateTodo />
+            <CreateTodo
+                onSubmitted={(creationRequest) => {
+                    console.log('Todo 생성:', creationRequest);
+                }}
+            />
         </div>
     );
 };

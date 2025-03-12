@@ -10,6 +10,6 @@ export function oauthSignIn() {
                 console.error(error);
             });
     } else {
-
+        window.location.replace(`${import.meta.env.VITE_API_URL}/oauth2/authorization/google`);
     }
 }

@@ -6,7 +6,7 @@ import { PreviewListReqeustParams, TodoPreviewListResponse } from '@/lib/api-cli
 import { Todo, User } from '@/types/model';
 
 const todos = Array.from({
-    length: 100,
+    length: 30,
 }, (_, index) => ({
     id: index + 1,
     userId: 1,
@@ -32,7 +32,7 @@ export const handlers = [
             },
         });
     }),
-    http.get(`${import.meta.env.VITE_API_URL}/api/users/me`, (resolver) => {
+    http.get(`${import.meta.env.VITE_API_URL}/v1/users/me`, (resolver) => {
         if (resolver.cookies['access_token'] !== 'test') {
             return HttpResponse.json<RestError | User>({
                 status: 401,
@@ -45,7 +45,7 @@ export const handlers = [
             email: 'test@algo.note',
         });
     }),
-    http.get(`${import.meta.env.VITE_API_URL}/api/todos`, async (resolver) => {
+    http.get(`${import.meta.env.VITE_API_URL}/v1/todos`, async (resolver) => {
         if (resolver.cookies['access_token'] !== 'test') {
             return HttpResponse.json<RestError | TodoPreviewListResponse>({
                 status: 401,

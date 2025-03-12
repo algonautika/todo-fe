@@ -34,7 +34,7 @@ export const TopAppBar = (props: TopAppBarProps) => {
             <div
                 style={{
                     display: 'flex',
-                    flexGrow: 1,
+                    flex: '1 0 auto',
                     justifyContent: 'center',
                 }}
             >

@@ -14,7 +14,7 @@ export async function getTodos(
     params: PreviewListReqeustParams,
 ): Promise<Result<TodoPreviewListResponse, RestError | Error>> {
     const restBody = await api.get(
-        `/api/todos`,
+        `/v1/todos`,
         params,
     );
 
@@ -30,7 +30,7 @@ export async function getTodos(
 export async function getTodo(
     id: string,
 ): Promise<Result<TodoGetResponse, RestError | Error>> {
-    const restBody = await api.get(`/api/todos/${id}`);
+    const restBody = await api.get(`/v1/todos/${id}`);
 
     if (restBody.isOk()) {
         return parseRestBody(TodoGetResponse, restBody.value);

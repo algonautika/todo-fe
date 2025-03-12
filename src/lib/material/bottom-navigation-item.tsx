@@ -30,6 +30,7 @@ export const BottomNavigationItem = ({
             style={{
                 display: 'flex',
                 flexGrow: 1,
+                flex: '1 0 auto',
                 flexFlow: 'column nowrap',
                 cursor: 'pointer',
                 alignItems: 'center',

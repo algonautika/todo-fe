@@ -2,15 +2,17 @@ import { applyTheme, argbFromHex, themeFromSourceColor } from '@material/materia
 import { useEffect, useMemo } from 'react';
 import { useMediaQuery } from 'usehooks-ts';
 
+import { useKeyboardStatus } from '@/hooks/useKeyboardStatus';
+
 import { AppProvider } from './provider';
 import { AppRouter } from './router';
 
 export const App = () => {
     // hex color로부터 테마를 가져옴
     const theme = useMemo(() => themeFromSourceColor(argbFromHex('#65558F')), []);
-
     // 사용자가 다크모드를 활성화했는지 확인
     const systemDark = useMediaQuery('(prefers-color-scheme: dark)');
+    const keyboardState = useKeyboardStatus();
 
     useEffect(() => {
         // body에 material tokens에 관한 custom properties를 업데이트하여 테마 적용
@@ -21,10 +23,15 @@ export const App = () => {
     }, [theme, systemDark]);
 
     return (
-        <>
+        <div
+            style={{
+                width: '100%',
+                height: `calc(100dvh - ${String(keyboardState.keyboardHeight)}px)`,
+            }}
+        >
             <AppProvider>
                 <AppRouter />
             </AppProvider>
-        </>
+        </div>
     );
 };

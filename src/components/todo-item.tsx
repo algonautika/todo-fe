@@ -42,7 +42,8 @@ export const TodoItem = (props: TodoItemProps) => {
                         height: 'fit-content',
                         display: 'flex',
                         flexFlow: 'column nowrap',
-                        flex: '1 0 0%',
+                        flex: '0 1 auto',
+                        // flexGrow: 1,
                         gap: '4px',
                     }}
                 >

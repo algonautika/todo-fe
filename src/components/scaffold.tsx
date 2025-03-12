@@ -31,7 +31,7 @@ export const Scaffold = (props: ScaffoldProps) => {
                 style={{
                     width: '100%',
                     minHeight: 0,
-                    flexGrow: 1,
+                    flex: '1 1 auto',
                     position: 'relative',
                     backgroundColor: 'var(--md-sys-color-surface)',
                 }}

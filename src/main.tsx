@@ -8,10 +8,21 @@ import { App } from '@/app';
 
 import './index.scss';
 
-// mock server 설정
 if (import.meta.env.DEV) {
+    // mock server 설정
     const { worker } = await import('@/testing/mocks/browser');
     await worker.start();
+
+    // eruda 활성화
+    await import('eruda').then((eruda) => {
+        eruda.default.init();
+    });
+
+    // chii 활성화
+    const host = location.hostname;
+    const chiiScript = document.createElement('script');
+    chiiScript.src = `http://${host}:8080/target.js`;
+    document.head.appendChild(chiiScript);
 }
 
 // reset css 적용
