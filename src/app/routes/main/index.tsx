@@ -1,12 +1,30 @@
-import { Outlet } from 'react-router';
+import { useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
+import { Outlet, useLocation } from 'react-router';
 
 import { Scaffold } from '@/components/scaffold';
+import { CreateTodo } from '@/features/todo/components/create-todo';
 import { BottomNavigation, BottomNavigationItem, Fab, Icon, TopAppBar } from '@/lib/material';
 
 export const Main = () => {
-    const handleFabClick = () => {
-        window.location.hash = '#create';
-    };
+    const location = useLocation();
+    const [createTodoVisibility, setCreateTodoVisibility] = useState(false);
+
+    useEffect(() => {
+        if (location.hash === '#create') {
+            document.startViewTransition(() => {
+                flushSync(() => {
+                    setCreateTodoVisibility(true);
+                });
+            });
+        } else {
+            document.startViewTransition(() => {
+                flushSync(() => {
+                    setCreateTodoVisibility(false);
+                });
+            });
+        }
+    }, [location.hash]);
 
     return (
         <Scaffold
@@ -37,14 +55,27 @@ export const Main = () => {
 
             floatingActionButton={(
                 <Fab
+                    style={{
+                        viewTransitionName: createTodoVisibility ? '' : 'create-todo',
+                        display: createTodoVisibility ? 'none' : 'block',
+                    }}
                     variant="secondary"
-                    onClick={handleFabClick}
+                    onClick={() => {
+                        window.location.hash = '#create';
+                    }}
                 >
                     <Icon slot="icon">add</Icon>
                 </Fab>
             )}
         >
             <Outlet />
+
+            <CreateTodo
+                onSubmitted={(creationRequest) => {
+                    console.log('Todo 생성:', creationRequest);
+                }}
+                visibility={createTodoVisibility}
+            />
         </Scaffold>
     );
 };

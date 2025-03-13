@@ -1,0 +1,23 @@
+::view-transition-old(create-todo),
+::view-transition-new(create-todo) {
+    animation: none;
+    // animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    // mix-blend-mode: normal;
+    height: 100%;
+    // overflow: clip;
+}
+
+/* The old view is the thumbnail */
+::view-transition-old(create-todo) {
+  /* Maintain the aspect ratio of the view,
+  by shrinking it to fit within the bounds of the element */
+  object-fit: contain;
+}
+
+/* The new view is the full image */
+::view-transition-new(create-todo) {
+  /* Maintain the aspect ratio of the view,
+  by growing it to cover the bounds of the element */
+  object-fit: cover;
+}

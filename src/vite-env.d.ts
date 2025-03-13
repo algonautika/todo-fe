@@ -4,7 +4,7 @@
 interface ImportMetaEnv {
     readonly VITE_API_HOST: string;
     readonly VITE_API_URL: string;
-    readonly VITE_GOOGLE_OAUTH2_CLIENT_ID: string;
+    readonly VITE_CHII_PORT: string;
 }
 
 interface ImportMeta {

@@ -3,7 +3,6 @@ import { InView } from 'react-intersection-observer';
 
 import { ErrorResult } from '@/components/ErrorResult';
 import { TodoItem } from '@/components/todo-item';
-import { CreateTodo } from '@/features/todo/components/create-todo';
 import { useTodos } from '@/features/todo/hooks';
 import { TodoPreviewResponse } from '@/lib/api-client/types/preview';
 import { CircularProgress, List } from '@/lib/material';
@@ -105,11 +104,6 @@ export const Today = () => {
                     </InView>
                 )
             }
-            <CreateTodo
-                onSubmitted={(creationRequest) => {
-                    console.log('Todo 생성:', creationRequest);
-                }}
-            />
         </div>
     );
 };

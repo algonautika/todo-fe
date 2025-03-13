@@ -1,19 +1,18 @@
-import { FormEventHandler, useCallback, useEffect, useMemo, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { useLocation } from 'react-router';
+import { FormEventHandler, useCallback, useEffect, useState } from 'react';
+import { createPortal, flushSync } from 'react-dom';
 
+import { IconText } from '@/components/IconText';
 import { TodoCreationRequest } from '@/lib/api-client/types/creation';
 import { Divider, FilledButton, Icon, OutlinedButton, OutlinedTextField, Switch } from '@/lib/material';
 
-import { IconText } from '../../../components/IconText';
+import './index.scss';
 
 interface CreateTodoProps {
     onSubmitted: (creationRequest: TodoCreationRequest) => void;
+    visibility: boolean;
 }
 
 export const CreateTodo = (props: CreateTodoProps) => {
-    const location = useLocation();
-    const isVisible = useMemo(() => location.hash === '#create', [location.hash]);
     const [todo, setTodo] = useState<TodoCreationRequest>({
         title: '',
         description: '',
@@ -26,6 +25,10 @@ export const CreateTodo = (props: CreateTodoProps) => {
     const [isDeadlineWithTime, setIsDeadlineWithTime] = useState(false);
     const [isDateWithTime, setIsDateWithTime] = useState(false);
 
+    const close = useCallback(() => {
+        window.history.back();
+    }, []);
+
     const updateTodo = useCallback(
         (values: Partial<TodoCreationRequest>) => {
             setTodo({
@@ -34,25 +37,15 @@ export const CreateTodo = (props: CreateTodoProps) => {
             });
         }, [todo]);
 
-    useEffect(() => {
-        const handleHashChange = () => {
-            // setIsVisible(window.location.hash === '#create');
-        };
-
-        window.addEventListener('hashchange', handleHashChange);
-
-        return () => {
-            window.removeEventListener('hashchange', handleHashChange);
-        };
-    }, []);
-
-    if (!isVisible) return null;
-
-    const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback((e) => {
         e.preventDefault();
         props.onSubmitted(todo);
-        window.history.back();
-    };
+        close();
+    }, [close, props, todo]);
+
+    if (!props.visibility) {
+        return null;
+    }
 
     return createPortal(
         (
@@ -69,6 +62,7 @@ export const CreateTodo = (props: CreateTodoProps) => {
                     right: 0,
                     bottom: 0,
                     zIndex: 50, // TODO: zIndex 규칙 정하기
+                    viewTransitionName: 'create-todo',
                 }}
             >
                 <form
@@ -229,7 +223,7 @@ export const CreateTodo = (props: CreateTodoProps) => {
                         <OutlinedButton
                             type="reset"
                             onClick={() => {
-                                window.history.back();
+                                close();
                             }}
                         >
                             취소

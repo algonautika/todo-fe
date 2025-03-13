@@ -21,7 +21,7 @@ if (import.meta.env.DEV) {
     // chii 활성화
     const host = location.hostname;
     const chiiScript = document.createElement('script');
-    chiiScript.src = `http://${host}:8080/target.js`;
+    chiiScript.src = `http://${host}:${import.meta.env.VITE_CHII_PORT}/target.js`;
     document.head.appendChild(chiiScript);
 }
 
