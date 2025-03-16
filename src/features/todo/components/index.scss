@@ -1,23 +1,49 @@
 ::view-transition-old(create-todo),
 ::view-transition-new(create-todo) {
-    animation: none;
-    // animation-duration: 2s;
-    animation-timing-function: ease-in-out;
-    // mix-blend-mode: normal;
+    // animation: none;
+    mix-blend-mode: normal;
     height: 100%;
     // overflow: clip;
 }
 
 /* The old view is the thumbnail */
-::view-transition-old(create-todo) {
-  /* Maintain the aspect ratio of the view,
-  by shrinking it to fit within the bounds of the element */
-  object-fit: contain;
-}
+// ::view-transition-old(create-todo) {
+//     /* Maintain the aspect ratio of the view,
+//   by shrinking it to fit within the bounds of the element */
+//     object-fit: contain;
+// }
 
 /* The new view is the full image */
+// ::view-transition-new(create-todo) {
+//     /* Maintain the aspect ratio of the view,
+//   by growing it to cover the bounds of the element */
+//     object-fit: cover;
+// }
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    20% {
+        opacity: 0;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+}
+
+::view-transition-old(create-todo) {
+    animation-name: fade-out;
+}
+
 ::view-transition-new(create-todo) {
-  /* Maintain the aspect ratio of the view,
-  by growing it to cover the bounds of the element */
-  object-fit: cover;
+    animation-name: fade-in;
 }

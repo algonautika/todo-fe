@@ -2,7 +2,7 @@ import axios, { AxiosResponse, isAxiosError } from 'axios';
 import { err, ok, Result } from 'neverthrow';
 import { z } from 'zod';
 
-import { CreationRequest, CreationResponse, GetResponse, RestError } from '@/lib/api-client/types';
+import { CreationRequest, CreationResponse, GetResponse, InvalidResponse, RestError } from '@/lib/api-client/types';
 
 /**
  * 해당 schema로 response를 파싱
@@ -13,20 +13,20 @@ import { CreationRequest, CreationResponse, GetResponse, RestError } from '@/lib
 function parseResponse<T>(
     schema: z.ZodType<T>,
     response: AxiosResponse<unknown, unknown>,
-): Result<T, RestError | Error> {
+): Result<T, Error> {
     const parseResult = schema.safeParse(response.data);
 
     if (parseResult.success) {
         return ok(parseResult.data);
     }
 
-    const errorParseResult = RestError.safeParse(response.data);
+    const invalidResponseParseResult = InvalidResponse.safeParse(response.data);
 
-    if (errorParseResult.success) {
-        return err(errorParseResult.data);
+    if (invalidResponseParseResult.success) {
+        return err(new RestError(invalidResponseParseResult.data));
     }
 
-    return err(new Error(`서버의 응답을 파싱할 수 없음\n${String(errorParseResult.error)}`));
+    return err(invalidResponseParseResult.error);
 }
 
 /**
@@ -38,18 +38,14 @@ function parseResponse<T>(
 export function parseRestBody<T>(
     schema: z.ZodType<T>,
     restBody: unknown, // TODO: restBody가 Result로 들어오지 않도록 타입 제한 걸기
-): Result<T, z.ZodError<T> | Error> {
+): Result<T, Error> {
     const parse = schema.safeParse(restBody);
 
     if (parse.success) {
         return ok(parse.data);
     }
 
-    if (RestError.safeParse(parse.error).success) {
-        return err(parse.error);
-    }
-
-    return err(new Error(`서버의 응답을 파싱할 수 없음\n${String(parse.error)}`));
+    return err(parse.error);
 }
 
 /**
@@ -76,7 +72,7 @@ export const api = {
     get: async (
         url: string,
         params?: unknown,
-    ): Promise<Result<GetResponse, RestError | Error>> => {
+    ): Promise<Result<GetResponse, Error>> => {
         try {
             const response: AxiosResponse<unknown, unknown> = await client.get(
                 url,
@@ -99,7 +95,7 @@ export const api = {
 
     // POST 요청
     post: async (url: string, data: CreationRequest): Promise<
-        Result<CreationResponse, RestError | Error>
+        Result<CreationResponse, InvalidResponse | Error>
     > => {
         try {
             const response = await client.post(url, data);

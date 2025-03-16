@@ -40,7 +40,12 @@ const root = document.getElementById('root');
 if (!root) {
     throw new Error('No root element found');
 }
+window.oncontextmenu = function (event) {
+    event.preventDefault();
+    event.stopPropagation();
 
+    return false;
+};
 createRoot(root).render(
     <StrictMode>
         <App />

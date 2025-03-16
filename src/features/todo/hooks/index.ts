@@ -1,6 +1,6 @@
-import { useInfiniteQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { getTodos } from '../api';
+import { createTodo, getTodos } from '../api';
 
 export const useTodos = (pageSize: number) => {
     return useInfiniteQuery({
@@ -11,8 +11,9 @@ export const useTodos = (pageSize: number) => {
         ],
         queryFn: async (p) => {
             return await getTodos({
-                pageNumber: p.pageParam,
+                page: p.pageParam,
                 pageSize,
+                // TODO: 나중에 추가할 파라미터
                 sort: undefined,
                 preview: undefined,
             });
@@ -23,7 +24,7 @@ export const useTodos = (pageSize: number) => {
                 return undefined;
             }
 
-            const { totalPageSize, pageNumber } = lastPage.value;
+            const { totalPageSize, page: pageNumber } = lastPage.value;
 
             if (totalPageSize <= pageNumber + 1) {
                 return undefined;
@@ -36,7 +37,7 @@ export const useTodos = (pageSize: number) => {
                 return undefined;
             }
 
-            const { pageNumber } = firstPage.value;
+            const { page: pageNumber } = firstPage.value;
 
             if (pageNumber <= 0) {
                 return undefined;
@@ -48,5 +49,14 @@ export const useTodos = (pageSize: number) => {
 };
 
 export const useCreateTodo = () => {
-    // TODO: tanstack을 이용해서 todo 생성
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ['todos'],
+            });
+        },
+        mutationFn: createTodo,
+    });
 };

@@ -1,7 +1,6 @@
 import { err, Result } from 'neverthrow';
 
 import { api, parseRestBody } from '@/lib/api-client';
-import { RestError } from '@/lib/api-client/types';
 import { TodoCreationRequest, TodoCreationResponse } from '@/lib/api-client/types/creation';
 import { TodoGetResponse } from '@/lib/api-client/types/get';
 import { PreviewListReqeustParams, TodoPreviewListResponse } from '@/lib/api-client/types/preview';
@@ -12,7 +11,7 @@ import { PreviewListReqeustParams, TodoPreviewListResponse } from '@/lib/api-cli
  */
 export async function getTodos(
     params: PreviewListReqeustParams,
-): Promise<Result<TodoPreviewListResponse, RestError | Error>> {
+): Promise<Result<TodoPreviewListResponse, Error>> {
     const restBody = await api.get(
         `/v1/todos`,
         params,
@@ -29,14 +28,14 @@ export async function getTodos(
 
 export async function getTodo(
     id: string,
-): Promise<Result<TodoGetResponse, RestError | Error>> {
+): Promise<Result<TodoGetResponse, Error>> {
     const restBody = await api.get(`/v1/todos/${id}`);
 
     if (restBody.isOk()) {
         return parseRestBody(TodoGetResponse, restBody.value);
     }
 
-    return err(restBody.error);
+    return err(new Error(restBody.error.message));
 }
 
 /**
@@ -45,11 +44,11 @@ export async function getTodo(
  * @returns
  */
 export async function createTodo(data: TodoCreationRequest) {
-    const restBody = await api.post('/todos', data);
+    const restBody = await api.post('/v1/todos', data);
 
     if (restBody.isOk()) {
         return parseRestBody(TodoCreationResponse, restBody);
     }
 
-    return err(restBody.error);
+    return err(new Error(restBody.error.message));
 }

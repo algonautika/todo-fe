@@ -9,10 +9,22 @@ export const Todo = z.object({
     id: z.number(),
     userId: z.number(),
     title: z.string(),
-    description: z.string(),
-    startDate: z.string().datetime(),
-    endDate: z.string().datetime(),
-    deadline: z.string().datetime(),
+    description: z.union([z.null(), z.string()]),
+    startDate: z.union([
+        z.null(), z.string().datetime({
+            local: true,
+        }),
+    ]),
+    endDate: z.union([
+        z.null(), z.string().datetime({
+            local: true,
+        }),
+    ]),
+    deadline: z.union([
+        z.null(), z.string().datetime({
+            local: true,
+        }),
+    ]),
     timeZone: z.string(),
     checked: z.boolean(),
 });

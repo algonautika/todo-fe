@@ -24,9 +24,18 @@ export type CreationResponse = z.infer<typeof CreationResponse>;
 
 export type PreviewResponse = z.infer<typeof PreviewResponse>;
 
-export const RestError = z.object({
+export const InvalidResponse = z.object({
     status: z.number(),
     message: z.string(),
 });
 
-export type RestError = z.infer<typeof RestError>;
+export type InvalidResponse = z.infer<typeof InvalidResponse>;
+
+export class RestError extends Error {
+    public readonly response: InvalidResponse;
+
+    constructor(response: InvalidResponse) {
+        super(response.message);
+        this.response = response;
+    }
+}

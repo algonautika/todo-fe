@@ -9,7 +9,7 @@ import { Signin } from './routes/signin';
 import { Test } from './routes/test';
 
 export const AppRouter = () => {
-    const user = useMe();
+    const me = useMe();
 
     return (
         <BrowserRouter>
@@ -32,9 +32,9 @@ export const AppRouter = () => {
                 <Route
                     path={paths.main.path}
                     element={
-                        user.data === undefined
+                        me.data === undefined
                             ? <div>Loading...</div>
-                            : (user.data.isOk()
+                            : (me.data.isOk()
                                     ? <Main />
                                     : <Navigate to={paths.signin.path} />)
                     }

@@ -6,12 +6,12 @@ function listResponse<T>(schema: z.ZodType<T>) {
     return z.object({
         list: z.array(schema),
         totalPageSize: z.number(),
-        pageNumber: z.number(),
+        page: z.number(),
     });
 }
 
 export const PreviewListReqeustParams = z.object({
-    pageNumber: z.number(),
+    page: z.number(),
     pageSize: z.number(),
     sort: z.undefined(),
     preview: z.undefined(),

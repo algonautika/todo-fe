@@ -1,12 +1,20 @@
-import { Err } from 'neverthrow';
-
-import { RestError } from '@/lib/api-client/types';
+import { useCallback, useEffect } from 'react';
 
 interface ErrorResultProps {
-    err: Err<unknown, unknown> | RestError | Error;
+    err: Error;
 }
 
 export const ErrorResult = (props: ErrorResultProps) => {
+    const toStr = useCallback((err: Error) => {
+        console.error(err);
+
+        return ''; // TODO: Implement
+    }, []);
+
+    useEffect(() => {
+        console.error(props.err);
+    }, [props.err]);
+
     return (
         <div
             style={{
@@ -23,9 +31,7 @@ export const ErrorResult = (props: ErrorResultProps) => {
             </div>
             <div>
                 {
-                    props.err instanceof Err
-                        ? String(props.err.error)
-                        : props.err.message
+                    toStr(props.err)
                 }
             </div>
         </div>

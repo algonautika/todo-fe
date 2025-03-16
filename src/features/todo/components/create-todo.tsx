@@ -1,47 +1,74 @@
-import { FormEventHandler, useCallback, useEffect, useState } from 'react';
-import { createPortal, flushSync } from 'react-dom';
+import { FormEventHandler, useCallback, useState } from 'react';
+import { createPortal } from 'react-dom';
 
-import { IconText } from '@/components/IconText';
 import { TodoCreationRequest } from '@/lib/api-client/types/creation';
 import { Divider, FilledButton, Icon, OutlinedButton, OutlinedTextField, Switch } from '@/lib/material';
+import { Typography } from '@/lib/material/typography';
+
+import { useCreateTodo } from '../hooks';
 
 import './index.scss';
 
 interface CreateTodoProps {
-    onSubmitted: (creationRequest: TodoCreationRequest) => void;
     visibility: boolean;
 }
 
-export const CreateTodo = (props: CreateTodoProps) => {
-    const [todo, setTodo] = useState<TodoCreationRequest>({
-        title: '',
-        description: '',
-        deadline: '',
-        startDate: '',
-        endDate: '',
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    });
+type Date = {
+    date: string;
+    time: null;
+};
 
-    const [isDeadlineWithTime, setIsDeadlineWithTime] = useState(false);
-    const [isDateWithTime, setIsDateWithTime] = useState(false);
+type DateTime = {
+    date: string;
+    time: string;
+};
+
+export const CreateTodo = (props: CreateTodoProps) => {
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState<null | string>(null);
+    const [deadline, setDeadline] = useState<null | Date | DateTime>(null);
+    const [startDate, setStartDate] = useState<null | Date | DateTime>(null);
+    const [endDate, setEndDate] = useState<null | Date | DateTime>(null);
+
+    const [isDeadlineAllDay, setIsDeadlineAllDay] = useState(true);
+    const [isDateAllDay, setIsDateAllDay] = useState(true);
+
+    const createTodoMutation = useCreateTodo();
 
     const close = useCallback(() => {
         window.history.back();
     }, []);
 
-    const updateTodo = useCallback(
-        (values: Partial<TodoCreationRequest>) => {
-            setTodo({
-                ...todo,
-                ...values,
-            });
-        }, [todo]);
-
     const handleSubmit: FormEventHandler<HTMLFormElement> = useCallback((e) => {
         e.preventDefault();
-        props.onSubmitted(todo);
+
+        const creationRequest: TodoCreationRequest = {
+            title,
+            description,
+            deadline: isDeadlineAllDay && deadline?.time
+                ? `${deadline.date}T${deadline.time}`
+                : (deadline?.date
+                        ? `${deadline.date}T00:00:00`
+                        : null),
+            startDate: isDateAllDay && startDate?.time ? `${startDate.date}T${startDate.time}` : startDate?.date ?? null,
+            endDate: isDateAllDay && endDate?.time ? `${endDate.date}T${endDate.time}` : endDate?.date ?? null,
+            timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        };
+
+        createTodoMutation.mutate(creationRequest); // TODO: 에러 처리
+
         close();
-    }, [close, props, todo]);
+    }, [
+        close,
+        isDeadlineAllDay,
+        isDateAllDay,
+        title,
+        description,
+        deadline,
+        startDate,
+        endDate,
+        createTodoMutation,
+    ]);
 
     if (!props.visibility) {
         return null;
@@ -63,6 +90,7 @@ export const CreateTodo = (props: CreateTodoProps) => {
                     bottom: 0,
                     zIndex: 50, // TODO: zIndex 규칙 정하기
                     viewTransitionName: 'create-todo',
+                    animation: 'none',
                 }}
             >
                 <form
@@ -88,26 +116,24 @@ export const CreateTodo = (props: CreateTodoProps) => {
                         }}
                     >
                         <OutlinedTextField
-                            value={todo.title}
+                            value={title}
                             onChange={(e) => {
-                                updateTodo(
-                                    {
-                                        title: e.currentTarget.value,
-                                    },
-                                );
+                                setTitle(e.currentTarget.value);
                             }}
-                            placeholder="할 일"
+                            label="할 일"
+                            required
                         />
+
                         <OutlinedTextField
-                            value={todo.description}
+                            value={description ?? undefined}
                             onChange={(e) => {
-                                updateTodo({
-                                    description: e.currentTarget.value,
-                                });
+                                setDescription(e.currentTarget.value);
                             }}
-                            placeholder="설명"
+                            label="설명"
                         />
+
                         <Divider />
+
                         <div
                             style={{
                                 display: 'flex',
@@ -115,14 +141,21 @@ export const CreateTodo = (props: CreateTodoProps) => {
                                 placeItems: 'center',
                             }}
                         >
-                            <span className="md-typescale-label-large">All day</span>
+                            <Typography
+                                scale="body"
+                                size="large"
+                            >
+                                하루 종일
+                            </Typography>
+
                             <Switch
-                                selected={isDeadlineWithTime}
+                                selected={isDeadlineAllDay}
                                 onChange={() => {
-                                    setIsDeadlineWithTime(!isDeadlineWithTime);
+                                    setIsDeadlineAllDay(!isDeadlineAllDay);
                                 }}
                             />
                         </div>
+
                         <div
                             style={{
                                 display: 'flex',
@@ -131,39 +164,61 @@ export const CreateTodo = (props: CreateTodoProps) => {
                                 gap: '24px',
                             }}
                         >
-                            <IconText
-                                icon="schedule"
-                                text="마감일"
-                            />
                             <OutlinedTextField
                                 style={{
-                                    flex: '1 0 0%',
+                                    flex: '1 0 auto',
                                 }}
                                 type="date"
-                                value={todo.deadline}
+                                value={deadline?.date ?? ''}
+                                label="마감일"
                                 onChange={(e) => {
-                                    updateTodo({
-                                        deadline: e.currentTarget.value,
+                                    setDeadline({
+                                        date: e.currentTarget.value,
+                                        time: deadline?.time ?? null,
                                     });
                                 }}
+                                required={!isDeadlineAllDay}
+                            />
+
+                            <OutlinedTextField
+                                style={{
+                                    flex: '1 0 auto',
+                                    animationName: 'slide-in',
+                                    display: isDeadlineAllDay ? 'none' : 'block',
+                                }}
+                                type="time"
+                                value={deadline?.time ?? ''}
+                                label="마감 시간"
+                                onChange={(e) => {
+                                    setDeadline({
+                                        date: deadline?.date ?? '',
+                                        time: e.currentTarget.value,
+                                    });
+                                }}
+                                required={!isDeadlineAllDay}
                             />
                         </div>
+
                         <Divider />
-                        <IconText
-                            icon="schedule"
-                            text="날짜"
-                        />
+
                         <div
                             style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
+                                placeItems: 'center',
                             }}
                         >
-                            <span className="md-typescale-label-large">All day</span>
+                            <Typography
+                                scale="body"
+                                size="large"
+                            >
+                                하루 종일
+                            </Typography>
+
                             <Switch
-                                selected={isDateWithTime}
+                                selected={isDateAllDay}
                                 onChange={() => {
-                                    setIsDateWithTime(!isDateWithTime);
+                                    setIsDateAllDay(!isDateAllDay);
                                 }}
                             />
                         </div>
@@ -175,33 +230,99 @@ export const CreateTodo = (props: CreateTodoProps) => {
                                 alignItems: 'center',
                             }}
                         >
-                            <OutlinedTextField
+                            <div
                                 style={{
-                                    flex: '1 0 0%',
+                                    height: 'fit-content',
+                                    flex: '0 0 150px',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    flexDirection: 'column',
+                                    gap: '8px',
                                 }}
-                                type="date"
-                                value={todo.startDate}
-                                label="시작일"
-                                onChange={(e) => {
-                                    updateTodo({
-                                        startDate: e.currentTarget.value,
-                                    });
-                                }}
-                            />
-                            <Icon>arrow_forward</Icon>
-                            <OutlinedTextField
+                            >
+                                <OutlinedTextField
+                                    style={{
+                                    }}
+                                    type="date"
+                                    value={startDate?.date ?? ''}
+                                    label="시작일"
+                                    onChange={(e) => {
+                                        setStartDate({
+                                            date: e.currentTarget.value,
+                                            time: startDate?.time ?? null,
+                                        });
+                                    }}
+                                    required={!isDateAllDay}
+                                />
+
+                                <OutlinedTextField
+                                    style={{
+                                        display: isDateAllDay ? 'none' : 'block',
+                                    }}
+                                    type="time"
+                                    value={startDate?.time ?? ''}
+                                    label="시작 시간"
+                                    onChange={(e) => {
+                                        setStartDate({
+                                            date: startDate?.date ?? '',
+                                            time: e.currentTarget.value,
+                                        });
+                                    }}
+                                    required={!isDateAllDay}
+                                />
+                            </div>
+
+                            <div
                                 style={{
-                                    flex: '1 0 0%',
+                                    display: 'flex',
+                                    flex: '1 0 auto',
+                                    justifyContent: 'center',
                                 }}
-                                type="date"
-                                value={todo.endDate}
-                                label="종료일"
-                                onChange={(e) => {
-                                    updateTodo({
-                                        endDate: e.currentTarget.value,
-                                    });
+                            >
+                                <Icon>arrow_forward</Icon>
+                            </div>
+
+                            <div
+                                style={{
+                                    height: 'fit-content',
+                                    flex: '0 0 150px',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    flexDirection: 'column',
+                                    gap: '8px',
                                 }}
-                            />
+                            >
+                                <OutlinedTextField
+                                    style={{
+                                    }}
+                                    type="date"
+                                    value={endDate?.date ?? ''}
+                                    label="종료일"
+                                    onChange={(e) => {
+                                        setEndDate({
+                                            date: e.currentTarget.value,
+                                            time: endDate?.time ?? null,
+                                        });
+                                    }}
+                                    required={!isDateAllDay}
+                                />
+
+                                <OutlinedTextField
+                                    style={{
+                                        display: isDateAllDay ? 'none' : 'block',
+                                    }}
+                                    type="time"
+                                    value={endDate?.time ?? ''}
+                                    label="종료 시간"
+                                    onChange={(e) => {
+                                        setEndDate({
+                                            date: endDate?.date ?? '',
+                                            time: e.currentTarget.value,
+                                        });
+                                    }}
+                                    required={!isDateAllDay}
+                                />
+                            </div>
                         </div>
                     </div>
 

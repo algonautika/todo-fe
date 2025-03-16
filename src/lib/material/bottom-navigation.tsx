@@ -15,7 +15,7 @@ export const BottomNavigation = ({
                 justifyContent: 'center',
                 alignItems: 'center',
                 gap: '8px',
-                backgroundColor: 'var(--md-sys-color-container)',
+                backgroundColor: 'var(--md-sys-color-surface)',
             }}
         >
             { children }

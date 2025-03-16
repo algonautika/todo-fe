@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Outlet, useLocation } from 'react-router';
 
@@ -10,21 +10,29 @@ export const Main = () => {
     const location = useLocation();
     const [createTodoVisibility, setCreateTodoVisibility] = useState(false);
 
+    const updateCreateTodoVisibility = useCallback((visibility: boolean) => {
+        // NOTE: 오래된 브라우저에서는 startViewTransition이 없을 수 있음
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+        if (!document.startViewTransition) {
+            setCreateTodoVisibility(visibility);
+
+            return;
+        }
+
+        document.startViewTransition(() => {
+            flushSync(() => {
+                setCreateTodoVisibility(visibility);
+            });
+        });
+    }, []);
+
     useEffect(() => {
         if (location.hash === '#create') {
-            document.startViewTransition(() => {
-                flushSync(() => {
-                    setCreateTodoVisibility(true);
-                });
-            });
+            updateCreateTodoVisibility(true);
         } else {
-            document.startViewTransition(() => {
-                flushSync(() => {
-                    setCreateTodoVisibility(false);
-                });
-            });
+            updateCreateTodoVisibility(false);
         }
-    }, [location.hash]);
+    }, [location.hash, updateCreateTodoVisibility]);
 
     return (
         <Scaffold
@@ -71,9 +79,6 @@ export const Main = () => {
             <Outlet />
 
             <CreateTodo
-                onSubmitted={(creationRequest) => {
-                    console.log('Todo 생성:', creationRequest);
-                }}
                 visibility={createTodoVisibility}
             />
         </Scaffold>
