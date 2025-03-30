@@ -54,12 +54,19 @@ export const TodoItem = (props: TodoItemProps) => {
                         { props.todoPreview.title }
                     </Typography>
 
-                    <Typography
-                        scale="label"
-                        size="small"
-                    >
-                        { props.todoPreview.description }
-                    </Typography>
+                    {
+                        props.todoPreview.description !== null
+                            ? (
+                                    <Typography
+                                        scale="label"
+                                        size="small"
+                                    >
+                                        { props.todoPreview.description }
+                                    </Typography>
+                                )
+                            : null
+                    }
+
                     <div
                         style={{
                             display: 'flex',

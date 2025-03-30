@@ -34,7 +34,9 @@ export const handlers = [
             },
         });
     }),
-    http.get(`${import.meta.env.VITE_API_URL}/v1/users/me`, (resolver) => {
+    http.get(`${import.meta.env.VITE_API_URL}/v1/users/me`, async (resolver) => {
+        await delay(1000);
+
         if (resolver.cookies['access_token'] !== 'test') {
             return HttpResponse.json<InvalidResponse | User>({
                 status: 401,

@@ -5,29 +5,40 @@ import { ErrorResult } from '@/components/ErrorResult';
 import { TodoItem } from '@/components/todo-item';
 import { useTodos } from '@/features/todo/hooks';
 import { TodoPreviewResponse } from '@/lib/api-client/types/preview';
-import { CircularProgress, List } from '@/lib/material';
-import { Typography } from '@/lib/material/typography';
+import { CircularProgress, Divider, List } from '@/lib/material';
 
 export const Today = () => {
     const todos = useTodos(10);
 
     const createItem = useCallback(
-        (todoPreview: TodoPreviewResponse) => (
-            <TodoItem
-                key={`todo-item:${String(todoPreview.id)}`}
-                todoPreview={todoPreview}
-            />
+        (
+            todoPreview: TodoPreviewResponse,
+            pageIndex: number,
+            itemIndex: number,
+        ) => (
+            <>
+                {
+                    pageIndex > 0 || itemIndex > 0
+                        ? (
+                                <Divider
+                                    style={{
+                                        padding: '0px 16px',
+                                    }}
+                                />
+                            )
+                        : null
+                }
+                <TodoItem
+                    key={`todo-item:${String(todoPreview.id)}`}
+                    todoPreview={todoPreview}
+                />
+            </>
         ), []);
 
     const pages = useCallback(() => {
         if (todos.status === 'pending') {
             return (
-                <Typography
-                    scale="body"
-                    size="medium"
-                >
-                    Loading
-                </Typography>
+                <CircularProgress indeterminate />
             );
         }
 
@@ -40,13 +51,29 @@ export const Today = () => {
         return (
             <>
                 {
-                    todos.data.pages.map((page, index) => {
+                    todos.data.pages.map((page, pageIndex) => {
                         return (
-                            <Fragment key={`page:${String(index)}`}>
+                            <Fragment key={`page:${String(pageIndex)}`}>
                                 {
                                     page.isErr()
                                         ? <ErrorResult err={page.error} />
-                                        : page.value.list.map(createItem)
+                                        : page.value.list
+                                                .map((item, itemIndex) => (
+                                                    createItem(
+                                                        item,
+                                                        pageIndex,
+                                                        itemIndex,
+                                                    )),
+                                                )
+                                                .map((item, itemIndex) => (
+                                                    <Fragment
+                                                        key={`todo-item:${String(itemIndex)}`}
+                                                    >
+
+                                                        { item }
+                                                    </Fragment>
+                                                ))
+
                                 }
                             </Fragment>
                         );

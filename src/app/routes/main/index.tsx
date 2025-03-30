@@ -39,7 +39,7 @@ export const Main = () => {
             topAppBar={(
                 <TopAppBar
                     type="center-aligned"
-                    title="Title"
+                    title="Todo"
                 />
             )}
 
